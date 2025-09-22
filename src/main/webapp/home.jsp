@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
      <%@ page import="helper.employeeHelper.UserDetails" %>
 <!DOCTYPE html>
 <html>
@@ -358,14 +359,17 @@
 <div class="row mt-3">
 
   <div class="col-lg-3 col-6">
-    <div class="small-box bg-primary">
-      <div class="inner">
-        <h3>${employeeMetrics.upcomingTrainings}</h3>
-        <p>Upcoming Trainings</p>
-      </div>
-      <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
-    </div>
-  </div>
+    <a href="EmployeeTrainingProgress" style="text-decoration:none;">
+        <div class="small-box bg-primary">
+            <div class="inner">
+                <h3>${employeeMetrics.upcomingTrainings}</h3>
+                <p>My Trainings</p>
+            </div>
+            <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        </div>
+    </a>
+</div>
+
 
   <div class="col-lg-3 col-6">
     <div class="small-box bg-success">
@@ -381,7 +385,10 @@
     <div class="small-box bg-info">
       <div class="inner">
         <h4>Date of Joining</h4>
-        <p><fmt:formatDate value="${employeeMetrics.dateOfJoining}" pattern="dd MMM yyyy"/></p>
+       <%--  <p><fmt:formatDate value="${employeeMetrics.dateOfJoining}" pattern="dd MMM yyyy"/> --%>
+       <p>
+       ${ employeeMetrics.dateOfJoining}
+        </p>
       </div>
       <div class="icon"><i class="fas fa-calendar-alt"></i></div>
     </div>

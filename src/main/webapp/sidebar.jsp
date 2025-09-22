@@ -16,7 +16,7 @@
       --manager-secondary: #1abc9c;
       --manager-accent: #27ae60;
       
-      --employee-primary: #8e44ad;
+       --employee-primary: #8e44ad;
       --employee-secondary: #9b59b6;
       --employee-accent: #2980b9;
       
@@ -71,17 +71,42 @@
       background: linear-gradient(135deg, var(--manager-accent), #2ecc71) !important;
     }
 
-    /* Employee Theme */
-    .employee-theme {
-      background: linear-gradient(135deg, var(--employee-primary), var(--employee-secondary)) !important;
+   /* Employee Cards */
+    .employee-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
     }
     
-    .employee-theme .brand-link {
-      border-bottom: 2px solid var(--employee-accent);
+    .employee-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s;
     }
     
-    .employee-theme .nav-item > .nav-link.active {
-      background: linear-gradient(135deg, var(--employee-accent), #3498db) !important;
+    .employee-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .employee-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      border: 2px solid white;
+    }
+    
+    .employee-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .employee-role {
+      font-size: 12px;
+      opacity: 0.8;
     }
 
     /* Common Modern Styles */
@@ -233,14 +258,28 @@
         
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-chart-line"></i>
-            <p>Reports & Analytics <i class="fas fa-angle-left right"></i></p>
+            <i class="nav-icon fas fa-chart-bar"></i>
+            <p>
+              Reports
+              <i class="fas fa-angle-left right"></i>
+            </p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-bar nav-icon"></i><p>Performance</p></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-clock nav-icon"></i><p>Attendance</p></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-money-bill-wave nav-icon"></i><p>Payroll</p></a></li>
+            <li class="nav-item"><a href="BbEmployeeReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Employee Report</p></a></li>
+            <li class="nav-item"><a href="BbAttendanceReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Attendance Report</p></a></li>
+            <li class="nav-item"><a href="BbLeaveReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Leave Report</p></a></li>
+            <li class="nav-item"><a href="BbPayslipReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Payslip Report</p></a></li>
+            <li class="nav-item"><a href="BbProjectReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Project Report</p></a></li>
+            <li class="nav-item"><a href="BbTaskReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Task Report</p></a></li>
           </ul>
+        </li>
+        
+        
+        <li class="nav-item">
+          <a href="${pageContext.request.contextPath}/Admin_AssignedTicket?action=view" class="nav-link">
+            <i class="nav-icon fas fa-life-ring"></i>
+            <p>Help & Support</p>
+          </a>
         </li>
 
         <% } else if (employee != null && "manager".equalsIgnoreCase(employee.getRoleName())) { %>
@@ -275,34 +314,43 @@
             <li class="nav-item"><a href="training-list.jsp" class="nav-link"><i class="fas fa-list nav-icon"></i><p>Training List</p></a></li>
           </ul>
         </li>
+        
+        <!-- Help & Support -->
+        <li class="nav-item">
+          <a href="${pageContext.request.contextPath}/Manager_AssignTicket?action=view" class="nav-link">
+            <i class="nav-icon fas fa-life-ring"></i>
+            <p>Help & Support</p>
+          </a>
+        </li>
 
         <% } else if (employee != null) { %>
         <!-- 👤 Employee Sidebar -->
         <li class="nav-item">
-          <a href="employee-dashboard.jsp" class="nav-link active">
+          <a href="Home" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>My Dashboard <span class="right badge badge-success">You</span></p>
           </a>
         </li>
         
         <li class="nav-item">
-          <a href="my-profile.jsp" class="nav-link">
+          <a href="UserDetailServlet" class="nav-link">
             <i class="nav-icon fas fa-user"></i>
             <p>My Profile</p>
           </a>
         </li>
         
-        <li class="nav-item">
+        <li class="nav-item">                                                     
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-graduation-cap"></i>
             <p>My Training <i class="fas fa-angle-left right"></i></p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item"><a href="my-training.jsp" class="nav-link"><i class="fas fa-list nav-icon"></i><p>Training List</p></a></li>
-            <li class="nav-item"><a href="training-history.jsp" class="nav-link"><i class="fas fa-history nav-icon"></i><p>History</p></a></li>
-            <li class="nav-item"><a href="upcoming-training.jsp" class="nav-link"><i class="fas fa-calendar nav-icon"></i><p>Upcoming</p></a></li>
+            <li class="nav-item"><a href="EmployeeTrainingProgress" class="nav-link"><i class="fas fa-list nav-icon"></i><p> Training Progress</p></a></li>
           </ul>
         </li>
+        
+        
+        
         
         <li class="nav-item">
           <a href="attendance.jsp" class="nav-link">
@@ -317,6 +365,42 @@
             <p>Leave Management</p>
           </a>
         </li>
+        
+        
+        <!-- Help & Support -->
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-life-ring"></i>
+            <p>Help & Support<i class="right fas fa-angle-left"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="${pageContext.request.contextPath}/RaisedTicket?action=view" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Raised New Tickets</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="${pageContext.request.contextPath}/MyTickets?action=view" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>My Tickets</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="${pageContext.request.contextPath}/EmployeeTicketAction?action=view" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Employee Solution</p>
+              </a>
+            </li>
+          </ul>
+          
+        </li>
+        
+        
         <% } %>
 
       </ul>

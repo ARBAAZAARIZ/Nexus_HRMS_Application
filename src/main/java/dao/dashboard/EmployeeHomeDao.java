@@ -3,17 +3,21 @@ package dao.dashboard;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 import helper.dashboardHelper.EmployeeDashboardMetrics;
+import helper.dashboardHelper.TrainingInfo;
 import util.DatabaseConnection;
 
 public class EmployeeHomeDao {
 
-    // Fetch basic employee info and counts relevant for dashboard
+  
     public EmployeeDashboardMetrics employeeGetDashboardMetrics(int userId) {
         EmployeeDashboardMetrics metrics = new EmployeeDashboardMetrics();
 
         try (Connection conn = DatabaseConnection.getConnection()) {
-            // Employee basic info (role, department, designation, reporting manager)
+           
             String sqlInfo = "SELECT r.role_name, d.department_name, des.designation_name, "
                     + "u.date_of_joining, mgr.first_name AS mgr_first, mgr.last_name AS mgr_last "
                     + "FROM users u "
@@ -35,8 +39,10 @@ public class EmployeeHomeDao {
                     }
                 }
             }
+            System.out.println(metrics.getReportingManagerName() + " from employee dashboard dao" );
+            System.out.println(metrics.getDateOfJoining() + " from employee  dashboard dao");
 
-            // Count upcoming trainings for this employee
+            
             String sqlUpcomingTrainings = "SELECT COUNT(*) FROM training WHERE user_id = ? AND start_date >= CURDATE() AND status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sqlUpcomingTrainings)) {
                 ps.setInt(1, userId);
@@ -47,7 +53,7 @@ public class EmployeeHomeDao {
                 }
             }
 
-            // Count completed trainings for this employee
+           
             String sqlCompletedTrainings = "SELECT COUNT(*) FROM training WHERE user_id = ? AND end_date < CURDATE() AND status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sqlCompletedTrainings)) {
                 ps.setInt(1, userId);
@@ -58,7 +64,7 @@ public class EmployeeHomeDao {
                 }
             }
 
-            // You can add more employee-specific metrics here
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,4 +72,46 @@ public class EmployeeHomeDao {
 
         return metrics;
     }
+    
+    
+	public List<TrainingInfo> employeeGetTrainingProgress(int userId) {
+	    List<TrainingInfo> trainingList = new ArrayList<>();
+	    String sql = "SELECT t.training_id, tt.training_type, t.description, t.training_cost, "
+	            + "t.start_date, t.end_date, t.status, "
+	            + "tr.first_name AS trainer_first_name, tr.last_name AS trainer_last_name, tr.profile_picture "
+	            + "FROM training t "
+	            + "LEFT JOIN training_type tt ON t.training_type_id = tt.training_type_id "
+	            + "LEFT JOIN trainers tr ON t.trainer_id = tr.trainer_id "
+	            + "WHERE t.user_id = ? ORDER BY t.start_date DESC";
+
+
+	    try (Connection conn = DatabaseConnection.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, userId);
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                TrainingInfo training = new TrainingInfo();
+	                training.setTrainingId(rs.getInt("training_id"));
+	                training.setTrainingType(rs.getString("training_type"));
+	                training.setDescription(rs.getString("description"));
+	                training.setStartDate(rs.getDate("start_date"));
+	                training.setEndDate(rs.getDate("end_date"));
+	                training.setStatus(rs.getString("status"));
+	                training.setTrainingCost(rs.getDouble("training_cost")); // use BigDecimal for currency
+	                String trainerFullName = "";
+	                if (rs.getString("trainer_first_name") != null) {
+	                    trainerFullName = rs.getString("trainer_first_name") + " " + rs.getString("trainer_last_name");
+	                }
+	                training.setTrainerName(trainerFullName);
+	                training.setTrainerProfilePicture(rs.getString("profile_picture"));
+
+	                trainingList.add(training);
+	                
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return trainingList;
+	}
 }

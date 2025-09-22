@@ -541,6 +541,44 @@ public class UserDAO {
             return false;
         }
     }
+    
+    
+    
+ // Check if email exists in users table
+    public boolean isEmailExists(String email) {
+        boolean exists = false;
+        String sql = "SELECT email FROM users WHERE email = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+             ps.setString(1, email);
+             try (ResultSet rs = ps.executeQuery()) {
+                 if (rs.next()) {
+                     exists = true;
+                 }
+             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return exists;
+    }
+
+    // Update password by email (hashed password)
+    public boolean updatePasswordByEmail(String email, String hashedPassword) {
+        boolean updated = false;
+        String sql = "UPDATE users SET hash_password = ?, modified_at = CURRENT_TIMESTAMP WHERE email = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+             ps.setString(1, hashedPassword);
+             ps.setString(2, email);
+             int rows = ps.executeUpdate();
+             if (rows > 0) {
+                 updated = true;
+             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updated;
+    }
 
 
     

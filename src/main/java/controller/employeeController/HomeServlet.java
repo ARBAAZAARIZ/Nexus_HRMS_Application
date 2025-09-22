@@ -46,8 +46,10 @@ public class HomeServlet extends HttpServlet {
         	
             EmployeeDashboardMetrics employeeMetrics = employeeHomeService.employeeFetchDashboardMetrics(userId);
             request.setAttribute("employeeMetrics", employeeMetrics);
+            
+            System.out.println(employeeMetrics);
         }
-        // Add similar section for manager/employee as you extend
+      
 
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }

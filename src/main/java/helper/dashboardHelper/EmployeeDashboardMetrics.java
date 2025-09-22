@@ -55,4 +55,16 @@ public class EmployeeDashboardMetrics {
     public void setCompletedTrainings(int completedTrainings) {
         this.completedTrainings = completedTrainings;
     }
+	@Override
+	public String toString() {
+		return "EmployeeDashboardMetrics [roleName=" + roleName + ", departmentName=" + departmentName
+				+ ", designationName=" + designationName + ", dateOfJoining=" + dateOfJoining
+				+ ", reportingManagerName=" + reportingManagerName + ", upcomingTrainings=" + upcomingTrainings
+				+ ", completedTrainings=" + completedTrainings + "]";
+	}
+    
+    
+    
+    
+    
 }

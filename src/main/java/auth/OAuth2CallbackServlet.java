@@ -64,6 +64,8 @@ public class OAuth2CallbackServlet extends HttpServlet {
 			    
 			    String status = employee.getStatus(); 
 			    
+			    	System.out.println("inactive".equalsIgnoreCase(status));
+			    
 			    if ("inactive".equalsIgnoreCase(status)) {
 	                request.setAttribute("message", "Your account is inactive. Please contact HR.");
 	                request.getRequestDispatcher("login.jsp").forward(request, response);
