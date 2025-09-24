@@ -56,6 +56,14 @@ public class Users {
 		this.modifiedBy = modifiedBy;
 		this.status=status;
 	}
+	
+	
+	public Users(int userId, String firstName, String lastName) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 
 	public int getUserId() {

@@ -49,12 +49,12 @@ public class M_AssignedDAO {
 
                     int assignTo = rs.getInt("assign_to");
                     if (rs.wasNull()) {
-                        t.setAssignTo(0); // 0 = Not assigned
+                        t.setAssignTo(0); 
                     } else {
                         t.setAssignTo(assignTo);
                     }
 
-                    t.setAssignToName(rs.getString("assign_name")); // null if not assigned
+                    t.setAssignToName(rs.getString("assign_name"));  
                     return t;
                 }
             }
@@ -118,8 +118,8 @@ public class M_AssignedDAO {
 
             while (rs.next()) {
                 Ticket staff = new Ticket();
-                staff.setAssignTo(rs.getInt("user_id")); // staff ID
-                staff.setAssignToName(rs.getString("name")); // staff name
+                staff.setAssignTo(rs.getInt("user_id"));  
+                staff.setAssignToName(rs.getString("name"));  
                 staffList.add(staff);
             }
 

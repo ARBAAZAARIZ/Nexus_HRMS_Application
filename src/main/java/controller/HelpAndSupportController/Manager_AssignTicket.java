@@ -21,7 +21,7 @@ public class Manager_AssignTicket extends HttpServlet {
         service = new M_AssignedTicketService();
     }
 
-    // Not used for now, could be used to show assign form
+     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,7 +54,7 @@ public class Manager_AssignTicket extends HttpServlet {
             request.getSession().setAttribute("errorMsg", "Invalid input data!");
         }
 
-        // Redirect back to the manager ticket list page
+         
         response.sendRedirect(request.getContextPath() + "/Manager_AssignTicket");
         }
 }

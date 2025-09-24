@@ -15,68 +15,68 @@ public class AdminHomeDao {
         AdminDashboardMetrics metrics = new AdminDashboardMetrics();
 
         try (Connection conn = DatabaseConnection.getConnection()) {
-            // Total Employees
+            
             String sql1 = "SELECT COUNT(*) FROM users";
             try (PreparedStatement ps = conn.prepareStatement(sql1);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setTotalEmployees(rs.getInt(1));
             }
 
-            // Active Employees
+             
             String sql2 = "SELECT COUNT(*) FROM users WHERE status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sql2);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setActiveEmployees(rs.getInt(1));
             }
 
-            // Inactive Employees
+             
             String sql3 = "SELECT COUNT(*) FROM users WHERE status='INACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sql3);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setInactiveEmployees(rs.getInt(1));
             }
 
-            // Active Departments
+           
             String sql4 = "SELECT COUNT(*) FROM departments WHERE status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sql4);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setActiveDepartments(rs.getInt(1));
             }
 
-            // Active Roles
+            
             String sql5 = "SELECT COUNT(*) FROM roles WHERE status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sql5);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setActiveRoles(rs.getInt(1));
             }
 
-            // Active Designations
+            
             String sql6 = "SELECT COUNT(*) FROM designation WHERE status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sql6);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setActiveDesignations(rs.getInt(1));
             }
 
-            // Active Trainers
+             
             String sql7 = "SELECT COUNT(*) FROM trainers WHERE status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sql7);
                  ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setActiveTrainers(rs.getInt(1));
             }
 
-            // Upcoming Trainings (start_date >= today)
+             
             String sql8 = "SELECT COUNT(*) FROM training WHERE start_date >= CURDATE() AND status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sql8); ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setUpcomingTrainings(rs.getInt(1));
             }
 
-            // Completed Trainings (end_date < today)
+             
             String sql9 = "SELECT COUNT(*) FROM training WHERE end_date < CURDATE() AND status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sql9); ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setCompletedTrainings(rs.getInt(1));
             }
 
-            // Total Trainings
+           
             String sql10 = "SELECT COUNT(*) FROM training WHERE status='ACTIVE'";
             try (PreparedStatement ps = conn.prepareStatement(sql10); ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) metrics.setTotalTrainings(rs.getInt(1));

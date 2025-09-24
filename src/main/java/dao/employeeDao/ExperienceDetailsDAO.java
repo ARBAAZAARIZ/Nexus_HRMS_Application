@@ -17,7 +17,7 @@ public class ExperienceDetailsDAO {
         conn = DatabaseConnection.getConnection();
     }
     
-    // Get all experience details for a user
+   
     public List<ExperienceDetails> getExperienceDetailsByUserId(int userId) {
         List<ExperienceDetails> experienceList = new ArrayList<>();
         String sql = "SELECT * FROM experience_details WHERE user_id = ? ORDER BY from_date DESC";
@@ -66,7 +66,7 @@ public class ExperienceDetailsDAO {
         return experience;
     }
     
-    // Add new experience detail
+   
     public boolean addExperienceDetail(ExperienceDetails experience) {
         String sql = "INSERT INTO experience_details (designation_name, from_date, to_date, company_name, user_id) VALUES (?, ?, ?, ?, ?)";
         
@@ -84,7 +84,7 @@ public class ExperienceDetailsDAO {
         }
     }
     
-    // Update experience detail
+    
     public boolean updateExperienceDetail(ExperienceDetails experience) {
         String sql = "UPDATE experience_details SET designation_name = ?, from_date = ?, to_date = ?, company_name = ? WHERE experience_detail_id = ? AND user_id = ?";
         
@@ -103,7 +103,7 @@ public class ExperienceDetailsDAO {
         }
     }
     
-    // Delete experience detail
+     
     public boolean deleteExperienceDetail(int experienceDetailId, int userId) {
         String sql = "DELETE FROM experience_details WHERE experience_detail_id = ? AND user_id = ?";
         
@@ -118,7 +118,7 @@ public class ExperienceDetailsDAO {
         }
     }
     
-    // Check if experience already exists for user
+    
     public boolean isExperienceExists(String companyName, String designationName, int userId) {
         String sql = "SELECT COUNT(*) FROM experience_details WHERE company_name = ? AND designation_name = ? AND user_id = ?";
         

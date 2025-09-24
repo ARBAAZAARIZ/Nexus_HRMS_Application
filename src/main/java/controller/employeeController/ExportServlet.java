@@ -26,11 +26,11 @@ public class ExportServlet extends HttpServlet {
         List<UserDetails> users;
         
         if (selectedUsers != null && !selectedUsers.isEmpty()) {
-            // Get selected users only
+            
             String[] userIds = selectedUsers.split(",");
             users = userService.getUsersByIds(userIds);
         } else {
-            // Get all users
+            
             users = userService.getAllUserDetails();
         }
         
@@ -42,18 +42,18 @@ public class ExportServlet extends HttpServlet {
     }
     
     private void exportToPdf(List<UserDetails> users, HttpServletResponse response) {
-        // Implement PDF export using iText or other PDF library
+        
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=employees.pdf");
         
-        // PDF generation logic here
+       
     }
     
     private void exportToExcel(List<UserDetails> users, HttpServletResponse response) {
-        // Implement Excel export using Apache POI or other Excel library
+       
         response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-Disposition", "attachment; filename=employees.xlsx");
         
-        // Excel generation logic here
+       
     }
 }

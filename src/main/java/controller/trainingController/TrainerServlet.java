@@ -44,7 +44,7 @@ public class TrainerServlet extends HttpServlet {
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         if (action == null) {
-            // List all trainers with employee data for modal
+            
             List<Trainer> trainers = trainerService.getAllTrainers();
             List<UserDetails> employees = userService.getAllUserDetails().stream()
                     .filter(user -> "ACTIVE".equalsIgnoreCase(user.getStatus()))
@@ -55,17 +55,17 @@ public class TrainerServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/trainingViews/trainerManagement.jsp").forward(request, response);
         } 
         else if ("edit".equals(action)) {
-            // Handle edit request - load trainer data for edit modal
+           
             int trainerId = Integer.parseInt(request.getParameter("id"));
             Trainer trainer = trainerService.getTrainerById(trainerId);
             List<UserDetails> employees = userService.getAllUserDetails().stream()
                     .filter(user -> "ACTIVE".equalsIgnoreCase(user.getStatus()))
                     .toList();
             
-            request.setAttribute("trainer", trainer); // Single trainer object for edit
+            request.setAttribute("trainer", trainer);  
             request.setAttribute("employees", employees);
-            request.setAttribute("showUpdateModal", true); // Flag to show modal
-            request.setAttribute("trainers", trainerService.getAllTrainers()); // All trainers for table
+            request.setAttribute("showUpdateModal", true);  
+            request.setAttribute("trainers", trainerService.getAllTrainers());  
             
             request.getRequestDispatcher("/WEB-INF/views/trainingViews/trainerManagement.jsp").forward(request, response);
         } else if ("delete".equals(action)) {
@@ -87,7 +87,7 @@ public class TrainerServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         if ("insert".equals(action)) {
-            // Existing insert logic
+            
             UserDetails employee = (UserDetails) session.getAttribute("employee");
             String createdBy = employee.getFirstName() + employee.getLastName();
             
@@ -147,7 +147,7 @@ public class TrainerServlet extends HttpServlet {
             }
             
         } else if ("update".equals(action)) {
-            // Update trainer logic
+             
             UserDetails employee = (UserDetails) session.getAttribute("employee");
             String modifiedBy = employee.getFirstName() + employee.getLastName();
             
@@ -211,7 +211,7 @@ public class TrainerServlet extends HttpServlet {
     
     private String handleFileUpload(Part filePart, ServletContext servletContext) throws IOException {
         String appPath = servletContext.getRealPath("");
-        String uploadPath = appPath + "images/trainers";
+        String uploadPath = appPath + "images";
         
         Path uploadDir = Paths.get(uploadPath);
         if (!Files.exists(uploadDir)) {

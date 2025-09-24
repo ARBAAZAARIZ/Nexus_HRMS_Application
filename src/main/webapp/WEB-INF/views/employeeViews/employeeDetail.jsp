@@ -219,7 +219,7 @@
                 <p><strong>Date of Joining:</strong> ${userDetails.dateOfJoining}</p>
                 <p><strong>Reporting Manager:</strong> 
                   <c:if test="${userDetails.reportingManager > 0}">
-                    Manager Name
+                    Manager Name  
                   </c:if>
                   <c:if test="${userDetails.reportingManager <= 0}">
                     Not Assigned

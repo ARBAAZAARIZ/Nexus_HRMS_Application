@@ -40,14 +40,14 @@ public class TrainingServlet extends HttpServlet {
         String action = request.getParameter("action");
         
         if (action == null) {
-            // List all trainings with joined data
+            
             List<TrainingHelper> trainings = trainingService.getAllTrainingHelpers();
             request.setAttribute("trainings", trainings);
             loadDropdownData(request);
             request.getRequestDispatcher("/WEB-INF/views/trainingViews/trainingManagement.jsp").forward(request, response);
         } 
         else if ("edit".equals(action)) {
-            // Handle edit request - load training data for edit modal
+             
             int trainingId = Integer.parseInt(request.getParameter("id"));
             Training training = trainingService.getTrainingById(trainingId);
             
@@ -57,17 +57,17 @@ public class TrainingServlet extends HttpServlet {
             request.setAttribute("showUpdateModal", true);
             request.setAttribute("trainings", trainings);
             
-            // Load dropdown data for edit modal
+            
             loadDropdownData(request);
             
             request.getRequestDispatcher("/WEB-INF/views/trainingViews/trainingManagement.jsp").forward(request, response);
         }
         else if ("new".equals(action)) {
-            // Show new training form with all necessary data
+             
             List<TrainingHelper> trainings = trainingService.getAllTrainingHelpers();
             request.setAttribute("trainings", trainings);
             
-            // Load dropdown data for add modal
+             
             loadDropdownData(request);
             
             request.getRequestDispatcher("/WEB-INF/views/trainingViews/trainingManagement.jsp").forward(request, response);
@@ -79,7 +79,7 @@ public class TrainingServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         if ("insert".equals(action)) {
-            // Insert new training
+             
             UserDetails employee = (UserDetails) session.getAttribute("employee");
             String createdBy = employee.getFirstName() + " " + employee.getLastName();
             
@@ -118,7 +118,7 @@ public class TrainingServlet extends HttpServlet {
             }
             
         } else if ("update".equals(action)) {
-            // Update training
+             
             UserDetails employee = (UserDetails) session.getAttribute("employee");
             String modifiedBy = employee.getFirstName() + " " + employee.getLastName();
             
@@ -158,7 +158,7 @@ public class TrainingServlet extends HttpServlet {
             }
             
         } else if ("delete".equals(action)) {
-            // Delete training
+             
             int deleteTrainingId = Integer.parseInt(request.getParameter("id"));
             boolean deleteSuccess = trainingService.deleteTraining(deleteTrainingId);
             
@@ -172,17 +172,17 @@ public class TrainingServlet extends HttpServlet {
         response.sendRedirect("training");
     }
     
-    // Helper method to load dropdown data
+     
     private void loadDropdownData(HttpServletRequest request) {
-        // Load training types
+         
         List<TrainingType> trainingTypes = trainingTypeService.getAllTrainingTypes();
         request.setAttribute("trainingTypes", trainingTypes);
         
-        // Load trainers
+      
         List<Trainer> trainers = trainerService.getAllTrainers();
         request.setAttribute("trainers", trainers);
         
-        // Load employees (users)
+         
         List<UserDetails> employees = userService.getAllUserDetails().stream()
                 .filter(user -> "ACTIVE".equalsIgnoreCase(user.getStatus()))
                 .toList();

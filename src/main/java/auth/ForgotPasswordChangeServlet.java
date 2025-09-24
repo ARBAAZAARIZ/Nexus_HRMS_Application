@@ -41,18 +41,18 @@ public class ForgotPasswordChangeServlet extends HttpServlet {
             return;
         }
 
-        // Hash password using jBCrypt 
+        
         String hashed = PasswordEncryptor.hashPassword(newPass);
 
-        // Update password in DB
+       
         UserDAO userDao = new UserDAO();
         userDao.updatePasswordByEmail(email, hashed);
 
-        // Clear session attributes
+        
         session.removeAttribute("forgotPasswordEmail");
         session.removeAttribute("forgotPasswordOtp");
 
-        // Redirect to login page with success message
+       
         response.sendRedirect("login.jsp?msg=Password+changed+successfully");
     }
 }

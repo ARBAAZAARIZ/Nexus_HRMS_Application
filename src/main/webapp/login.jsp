@@ -54,6 +54,7 @@
         
         .logo {
             margin-bottom: 5px;
+            
         }
         
         .logo i {
@@ -271,7 +272,7 @@
             <i class="fa-brands fa-old-republic"></i>
         </div>
         
-        <h2>Welcome to Society Portal</h2>
+        <h2>Welcome to Nexus HRMS Portal</h2>
         <p class="subtitle">Sign in to access your account</p>
         
         

@@ -14,9 +14,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-/**
- * Servlet Filter implementation class AuthFilter
- */
+
 @WebFilter("/*")
 public class AuthFilter extends HttpFilter implements Filter {
 

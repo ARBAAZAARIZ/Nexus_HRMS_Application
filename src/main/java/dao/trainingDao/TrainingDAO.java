@@ -19,7 +19,7 @@ public class TrainingDAO {
         conn = DatabaseConnection.getConnection();
     }
     
-    // Add a new training
+    
     public boolean addTraining(Training training) {
         String sql = "INSERT INTO training (training_type_id, trainer_id, user_id, training_cost, description, start_date, end_date, status, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
@@ -48,7 +48,7 @@ public class TrainingDAO {
     }
     
     
-    // Get all trainings with joined data (using TrainingHelper)
+    
     public List<TrainingHelper> getAllTrainingHelpers() {
         List<TrainingHelper> trainings = new ArrayList<>();
         String sql = "SELECT t.*, tt.training_type as training_type_name, " +
@@ -91,7 +91,7 @@ public class TrainingDAO {
     
     
     
- // Get training by ID with joined data (using TrainingHelper)
+ 
     public TrainingHelper getTrainingHelperById(int trainingId) {
         TrainingHelper training = null;
         String sql = "SELECT t.*, tt.training_type as training_type_name, " +
@@ -133,7 +133,7 @@ public class TrainingDAO {
     }
     
     
-    // Get all trainings (basic model without joins)
+     
     public List<Training> getAllTrainings() {
         List<Training> trainings = new ArrayList<>();
         String sql = "SELECT * FROM training ORDER BY created_at DESC";
@@ -168,7 +168,7 @@ public class TrainingDAO {
 
     
     
-    // Get training by ID (basic model)
+    
     public Training getTrainingById(int trainingId) {
         Training training = null;
         String sql = "SELECT * FROM training WHERE training_id = ?";
@@ -203,7 +203,7 @@ public class TrainingDAO {
     
     
     
-    // Update training
+    
     public boolean updateTraining(Training training) {
         String sql = "UPDATE training SET training_type_id = ?, trainer_id = ?, user_id = ?, " +
                      "training_cost = ?, description = ?, start_date = ?, end_date = ?, " +
@@ -236,7 +236,7 @@ public class TrainingDAO {
     
     
     
-    // Get trainings by user ID with joined data
+    
     public List<TrainingHelper> getTrainingHelpersByUserId(int userId) {
         List<TrainingHelper> trainings = new ArrayList<>();
         String sql = "SELECT t.*, tt.training_type as training_type_name, " +
@@ -282,7 +282,7 @@ public class TrainingDAO {
     
     
     
-    // Get active trainings with joined data
+     
     public List<TrainingHelper> getActiveTrainingHelpers() {
         List<TrainingHelper> trainings = new ArrayList<>();
         String sql = "SELECT t.*, tt.training_type as training_type_name, " +
@@ -326,7 +326,7 @@ public class TrainingDAO {
     
     
     
- // Delete training (set status to INACTIVE)
+ 
     public boolean deleteTraining(int trainingId) {
         String sql = "UPDATE training SET status = 'INACTIVE' WHERE training_id = ?";
         

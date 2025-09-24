@@ -22,7 +22,7 @@ public class BankDetailsService {
     }
     
     public boolean addBankDetail(BankDetails bank) {
-        // Check if account number already exists
+         
         if (bankDetailsDAO.isAccountNumberExists(bank.getAccountNumber(), bank.getUserId())) {
             throw new IllegalArgumentException("Account number already exists for this user");
         }
@@ -30,7 +30,7 @@ public class BankDetailsService {
     }
     
     public boolean updateBankDetail(BankDetails bank) {
-        // Check if account number exists for other records (excluding current one)
+         
         BankDetails existing = bankDetailsDAO.getBankDetailById(bank.getBankDetailId());
         if (existing != null && !existing.getAccountNumber().equals(bank.getAccountNumber())) {
             if (bankDetailsDAO.isAccountNumberExists(bank.getAccountNumber(), bank.getUserId())) {

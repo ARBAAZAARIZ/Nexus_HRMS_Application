@@ -16,8 +16,7 @@ public class FamilyDetailsDAO {
     public FamilyDetailsDAO() {
         conn = DatabaseConnection.getConnection();
     }
-    
-    // Get all family details for a user
+   
     public List<FamilyDetails> getFamilyDetailsByUserId(int userId) {
         List<FamilyDetails> familyList = new ArrayList<>();
         String sql = "SELECT * FROM family_details WHERE user_id = ? ORDER BY relation, name";
@@ -42,7 +41,7 @@ public class FamilyDetailsDAO {
         return familyList;
     }
     
-    // Get single family detail by ID
+    
     public FamilyDetails getFamilyDetailById(int familyDetailsId) {
         FamilyDetails family = null;
         String sql = "SELECT * FROM family_details WHERE family_details_id = ?";
@@ -66,7 +65,7 @@ public class FamilyDetailsDAO {
         return family;
     }
     
-    // Add new family detail
+   
     public boolean addFamilyDetail(FamilyDetails family) {
         String sql = "INSERT INTO family_details (name, relation, date_of_birth, contact_number, user_id) VALUES (?, ?, ?, ?, ?)";
         
@@ -84,7 +83,7 @@ public class FamilyDetailsDAO {
         }
     }
     
-    // Update family detail
+    
     public boolean updateFamilyDetail(FamilyDetails family) {
         String sql = "UPDATE family_details SET name = ?, relation = ?, date_of_birth = ?, contact_number = ? WHERE family_details_id = ? AND user_id = ?";
         
@@ -103,7 +102,7 @@ public class FamilyDetailsDAO {
         }
     }
     
-    // Delete family detail
+    
     public boolean deleteFamilyDetail(int familyDetailsId, int userId) {
         String sql = "DELETE FROM family_details WHERE family_details_id = ? AND user_id = ?";
         
@@ -118,7 +117,7 @@ public class FamilyDetailsDAO {
         }
     }
     
-    // Check if family member already exists for user
+    
     public boolean isFamilyMemberExists(String name, String relation, int userId) {
         String sql = "SELECT COUNT(*) FROM family_details WHERE name = ? AND relation = ? AND user_id = ?";
         
