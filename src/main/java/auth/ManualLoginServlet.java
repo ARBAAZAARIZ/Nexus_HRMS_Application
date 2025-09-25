@@ -70,6 +70,8 @@ public class ManualLoginServlet extends HttpServlet {
 		        } 
 		     
 		     UserDetails employee = UserDetailsHelper.getUserDetailsByEmail(email);
+		     
+		     System.out.println(employee);
 		  
 		     request.getSession().setAttribute("employee", employee);
 		     request.setAttribute("message", "Login Successful !!!");
