@@ -283,26 +283,9 @@
          
           </ul>
         </li>
-         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-user-check"></i>
-            <p>
-              Attendance
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
+        
           
-          
-          <ul class="nav nav-treeview">
-              <li class="nav-item"><a href="todaysAttendanceServlet" class="nav-link"><i class="fas fa-business-time nav-icon"></i><p>Attendance</p></a>
-              </li>
-          </ul>
-            <li class="nav-item">
-          <a href="attendanceServlet" class="nav-link">
-            <i class="nav-icon fas fa-calendar-check"></i>
-            <p>Attendance</p>
-          </a>
-        </li>
+        
         <li class="nav-item">
           <a href="${pageContext.request.contextPath}/Admin_AssignedTicket?action=view" class="nav-link">
             <i class="nav-icon fas fa-life-ring"></i>
@@ -330,16 +313,14 @@
             <li class="nav-item"><a href="attendance-tracker.jsp" class="nav-link"><i class="fas fa-calendar-check nav-icon"></i><p>Attendance</p></a></li>
           </ul>
         </li>
-        <li class="nav-item">
+         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-users"></i>
-            <p>Attendance <i class="fas fa-angle-left right"></i></p>
+            <i class="nav-icon fas fa-user-check"></i>
+            <p>
+              Attendance
+              <i class="fas fa-angle-left right"></i>
+            </p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item"><a href="managerTimeSheetServlet" class="nav-link"><i class="fas fa-user-friends nav-icon"></i><p>Attendance</p></a></li>
-         
-          </ul>
-        </li>
         
         <li class="nav-item">
           <a href="#" class="nav-link">
@@ -390,7 +371,7 @@
         
         
         
-        <li class="nav-item">
+           <li class="nav-item">
           <a href="attendanceServlet" class="nav-link">
             <i class="nav-icon fas fa-calendar-check"></i>
             <p>Attendance</p>
