@@ -18,7 +18,7 @@ public class BankDetailsDAO {
         conn = DatabaseConnection.getConnection();
     }
     
-    // Get all bank details for a user
+    
     public List<BankDetails> getBankDetailsByUserId(int userId) {
         List<BankDetails> bankList = new ArrayList<>();
         String sql = "SELECT * FROM bank_details WHERE user_id = ? ORDER BY bank_name";
@@ -42,7 +42,7 @@ public class BankDetailsDAO {
         return bankList;
     }
     
-    // Get single bank detail by ID
+    
     public BankDetails getBankDetailById(int bankDetailId) {
         BankDetails bank = null;
         String sql = "SELECT * FROM bank_details WHERE bank_detail_id = ?";
@@ -65,7 +65,7 @@ public class BankDetailsDAO {
         return bank;
     }
     
-    // Add new bank detail
+     
     public boolean addBankDetail(BankDetails bank) {
         String sql = "INSERT INTO bank_details (bank_name, account_number, ifsc_code, user_id) VALUES (?, ?, ?, ?)";
         
@@ -82,7 +82,7 @@ public class BankDetailsDAO {
         }
     }
     
-    // Update bank detail
+    
     public boolean updateBankDetail(BankDetails bank) {
         String sql = "UPDATE bank_details SET bank_name = ?, account_number = ?, ifsc_code = ? WHERE bank_detail_id = ? AND user_id = ?";
         
@@ -100,7 +100,7 @@ public class BankDetailsDAO {
         }
     }
     
-    // Delete bank detail
+    
     public boolean deleteBankDetail(int bankDetailId, int userId) {
         String sql = "DELETE FROM bank_details WHERE bank_detail_id = ? AND user_id = ?";
         
@@ -115,7 +115,7 @@ public class BankDetailsDAO {
         }
     }
     
-    // Check if account number already exists for user
+    
     public boolean isAccountNumberExists(String accountNumber, int userId) {
         String sql = "SELECT COUNT(*) FROM bank_details WHERE account_number = ? AND user_id = ?";
         

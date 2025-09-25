@@ -134,14 +134,14 @@ public class UserServlet extends HttpServlet {
                 break;
             }
 
-            // In doGet method, add this case for designations:
+             
             case "getDesignations": {
                 int deptId = Integer.parseInt(request.getParameter("deptId"));
                 
-                // Get designations based on department
+                
                 List<DesignationHelper> designations = designationService.getDesignationsByDepartment(deptId);
                 
-                // Convert to JSON and send response
+                 
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 
@@ -171,7 +171,7 @@ public class UserServlet extends HttpServlet {
                 request.setAttribute("managers", managers);
                 request.setAttribute("showUpdateModal", true);
                 
-                // Forward to the same page but with modal open
+                 
                 List<UserDetails> users = userService.getAllUserDetails();
                 request.setAttribute("users", users);
                 

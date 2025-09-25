@@ -33,7 +33,7 @@ public class MyTickets extends HttpServlet {
 
        
 
-        // Fetch tickets for this employee
+         
         TicketService ticketService = new TicketService();
         List<Ticket> tickets = ticketService.getTicketsByUserId(userId);
 

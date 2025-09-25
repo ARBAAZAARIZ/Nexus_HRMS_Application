@@ -7,10 +7,13 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
+
 import java.util.*;
+
 
 @WebServlet("/managerTimeSheetServlet")
 public class ManagerTimeSheetServlet extends HttpServlet {
+
 
     private final ManagerDao dao = new ManagerDao();
 
@@ -50,6 +53,7 @@ public class ManagerTimeSheetServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
+
 
         response.sendRedirect("managerTimeSheetServlet");
     }

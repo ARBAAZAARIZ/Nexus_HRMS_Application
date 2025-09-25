@@ -20,12 +20,7 @@ public class UserDAO {
 		conn = DatabaseConnection.getConnection();
 	}
 	
-	
-	
-	
-	
-	 // Add new user
-	// Add new user
+ 
 	public boolean addUser(Users u) {
 	    String sql = "INSERT INTO users (first_name, last_name, email, "
 	            + "hash_password, contact_number, role_id, department_id, designation_id, "
@@ -58,7 +53,7 @@ public class UserDAO {
 	        
 	        boolean success = ps.executeUpdate() > 0;
 	        
-	        // If user was added successfully, update employee counts
+	        
 	        if (success) {
 	            updateDepartmentEmployeeCount(u.getDepartmentId());
 	            updateDesignationEmployeeCount(u.getDesignationId());
@@ -71,8 +66,7 @@ public class UserDAO {
 	    }
 	}
     
-    
- // Update department employee count
+ 
     public boolean updateDepartmentEmployeeCount(int departmentId) {
         String sql = "UPDATE departments SET number_of_employee = " +
                      "(SELECT COUNT(*) FROM users WHERE department_id = ? AND status = 'ACTIVE') " +
@@ -88,7 +82,7 @@ public class UserDAO {
         }
     }
 
-    // Update designation employee count
+    
     public boolean updateDesignationEmployeeCount(int designationId) {
         String sql = "UPDATE designation SET number_of_employee = " +
                      "(SELECT COUNT(*) FROM users WHERE designation_id = ? AND status = 'ACTIVE') " +
@@ -212,7 +206,7 @@ public class UserDAO {
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 UserDetails user = new UserDetails();
-                // Map all the necessary fields
+                
                 user.setUserId(rs.getInt("user_id"));
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
@@ -257,7 +251,7 @@ public class UserDAO {
                 user.setUserId(rs.getInt("user_id"));
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
-                // Set other fields as needed
+                 
                 list.add(user);
             }
         } catch (SQLException e) {
@@ -267,7 +261,7 @@ public class UserDAO {
     }
     
     
- // Get user by ID
+ 
     public Users getUserById(int userId) {
         Users user = null;
         String sql = "SELECT * FROM users WHERE user_id = ?";
@@ -305,10 +299,9 @@ public class UserDAO {
         return user;
     }
 
-    // Update user with profile picture handling
- // Update user with profile picture handling and employee count synchronization
+    
     public boolean updateUser(Users u) {
-        // First get the old user data to check if department or designation changed
+         
         Users oldUser = getUserById(u.getUserId());
         if (oldUser == null) {
             return false;
@@ -358,29 +351,29 @@ public class UserDAO {
             
             boolean success = ps.executeUpdate() > 0;
             
-            // If user was updated successfully, update employee counts
+             
             if (success) {
-                // Check if department changed
+               
                 if (oldUser.getDepartmentId() != u.getDepartmentId()) {
-                    // Update both old and new departments
+                   
                     updateDepartmentEmployeeCount(oldUser.getDepartmentId());
                     updateDepartmentEmployeeCount(u.getDepartmentId());
                 } else {
-                    // Department didn't change, just update the current one
+                   
                     updateDepartmentEmployeeCount(u.getDepartmentId());
                 }
                 
-                // Check if designation changed
+                
                 if (oldUser.getDesignationId() != u.getDesignationId()) {
-                    // Update both old and new designations
+                  
                     updateDesignationEmployeeCount(oldUser.getDesignationId());
                     updateDesignationEmployeeCount(u.getDesignationId());
                 } else {
-                    // Designation didn't change, just update the current one
+                   
                     updateDesignationEmployeeCount(u.getDesignationId());
                 }
                 
-                // Also update if status changed (active/inactive affects counts)
+                
                 if (!oldUser.getStatus().equals(u.getStatus())) {
                     updateDepartmentEmployeeCount(u.getDepartmentId());
                     updateDesignationEmployeeCount(u.getDesignationId());
@@ -418,7 +411,7 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 UserDetails user = new UserDetails();
-                // Map all fields as in getAllUserDetails()
+               
                 list.add(user);
             }
         } catch (SQLException e) {
@@ -485,8 +478,8 @@ public class UserDAO {
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
                 user.setEmail(rs.getString("email"));
-                user.setRoleName(rs.getString("role_id")); // or join to get role name
-                user.setDepartmentName(rs.getString("department_id")); // same here
+                user.setRoleName(rs.getString("role_id")); 
+                user.setDepartmentName(rs.getString("department_id"));  
                 user.setDesignationName(rs.getString("designation_id"));
                 user.setDateOfJoining(rs.getDate("date_of_joining"));
                 user.setContactNumber(rs.getString("contact_number"));
@@ -544,7 +537,7 @@ public class UserDAO {
     
     
     
- // Check if email exists in users table
+ 
     public boolean isEmailExists(String email) {
         boolean exists = false;
         String sql = "SELECT email FROM users WHERE email = ?";
@@ -562,7 +555,7 @@ public class UserDAO {
         return exists;
     }
 
-    // Update password by email (hashed password)
+    
     public boolean updatePasswordByEmail(String email, String hashedPassword) {
         boolean updated = false;
         String sql = "UPDATE users SET hash_password = ?, modified_at = CURRENT_TIMESTAMP WHERE email = ?";

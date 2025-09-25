@@ -21,7 +21,7 @@ public class FamilyDetailsService {
     }
     
     public boolean addFamilyDetail(FamilyDetails family) {
-        // Check if family member already exists
+        
         if (familyDetailsDAO.isFamilyMemberExists(family.getName(), family.getRelation(), family.getUserId())) {
             throw new IllegalArgumentException("Family member with the same name and relation already exists for this user");
         }
@@ -29,7 +29,7 @@ public class FamilyDetailsService {
     }
     
     public boolean updateFamilyDetail(FamilyDetails family) {
-        // Check if family member exists for other records (excluding current one)
+       
         FamilyDetails existing = familyDetailsDAO.getFamilyDetailById(family.getFamilyDetailsId());
         if (existing != null && 
             (!existing.getName().equals(family.getName()) || !existing.getRelation().equals(family.getRelation()))) {

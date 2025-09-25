@@ -13,6 +13,7 @@ public class AttendanceDAO {
 
     private static final LocalTime OFFICE_START_TIME = LocalTime.of(9, 0);
     private static final LocalTime HALF_DAY_THRESHOLD = LocalTime.of(13, 0); 
+
     public String handlePunch(int userId) throws SQLException {
         String nextAction = "Punch In";
         try (Connection conn = DatabaseConnection.getConnection()) {
@@ -104,8 +105,36 @@ public class AttendanceDAO {
 
 
 
+
+    private static final LocalTime ABSENT_CUTOFF = LocalTime.of(12, 0); 
+
  
-    
+    public void markAbsentForToday() throws SQLException {
+        LocalDate today = LocalDate.now();
+
+        String sql = "SELECT user_id FROM users WHERE user_id NOT IN " +
+                     "(SELECT user_id FROM attendance WHERE date=?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setDate(1, Date.valueOf(today));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int userId = rs.getInt("user_id");
+
+                  
+                    String insertSql = "INSERT INTO attendance(user_id, date, status, check_in) VALUES(?, ?, 'absent', NULL)";
+                    try (PreparedStatement psInsert = conn.prepareStatement(insertSql)) {
+                        psInsert.setInt(1, userId);
+                        psInsert.setDate(2, Date.valueOf(today));
+                        psInsert.executeUpdate();
+                    }
+                }
+            }
+        }
+    }   
     public Attendance getTodayAttendance(int userId ) throws SQLException {
     	
     	LocalDate today = LocalDate.now();
@@ -129,8 +158,7 @@ public class AttendanceDAO {
                     attend.setLate_hour(rs.getDouble("break_hour"));
                     attend.setUser_id(rs.getInt("user_id"));
                     System.out.println(attend.getCheck_in());
-                    System.out.println(attend.getWorking_hours());
-                    System.out.println(attend.getProduction_hours());
+
                     return attend;
                 }
             }
@@ -189,7 +217,9 @@ public class AttendanceDAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
+
                     return rs.getDouble("break_hour"); 
+
                 }
             }
         }
@@ -216,6 +246,7 @@ public class AttendanceDAO {
         }
         return 0.0;
     }
+
     
     
     public int getAllPresent() {
@@ -299,5 +330,64 @@ public class AttendanceDAO {
         }
         return attendanceList;
     }
+
+    
+    
+    public double getTotalWorkedHours(int userId, int month, int year) throws SQLException {
+	    double totalHours = 0.0;
+	    String sql = "SELECT SUM(working_hours) as total FROM attendance " +
+	                 "WHERE user_id=? AND MONTH(date)=? AND YEAR(date)=?";
+	    try (Connection conn = DatabaseConnection.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, userId);
+	        ps.setInt(2, month);
+	        ps.setInt(3, year);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            totalHours = rs.getDouble("total");
+	        }
+	    }
+	    return totalHours;
+	}
+    
+    
+
+	 public double getTotalHoursWorked(int userId, int month, int year) throws SQLException {
+	        String sql = "SELECT SUM(working_hours) AS total_hours " +
+	                     "FROM attendance " +
+	                     "WHERE user_id = ? AND MONTH(date) = ? AND YEAR(date) = ?";
+	        try (Connection conn = DatabaseConnection.getConnection();
+	   	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	            ps.setInt(1, userId);
+	            ps.setInt(2, month);
+	            ps.setInt(3, year);
+	            try (ResultSet rs = ps.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getDouble("total_hours");
+	                }
+	            }
+	        }
+	        return 0;
+	    }
+	 
+	 
+	 public int getWorkingDaysInMonth(int month, int year) throws SQLException {
+	        String sql = "SELECT COUNT(*) AS working_days " +
+	                     "FROM attendance " +
+	                     "WHERE MONTH(date) = ? AND YEAR(date) = ? " +
+	                     "AND status IN ('present','halfday')";
+	        try (Connection conn = DatabaseConnection.getConnection();
+		   	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	            ps.setInt(1, month);
+	            ps.setInt(2, year);
+	            try (ResultSet rs = ps.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getInt("working_days");
+	                }
+	            }
+	        }
+	        return 0;
+	    }
+
 
 }

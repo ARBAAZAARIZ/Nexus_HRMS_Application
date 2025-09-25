@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/BbPayslipReportController")
+@WebServlet("/BbPayslipReportServlet")
 public class BbPayslipReportServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;

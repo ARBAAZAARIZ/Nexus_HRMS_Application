@@ -63,10 +63,10 @@ public class UserDetailServlet extends HttpServlet {
         Integer userId = employee.getUserId();
        
 
-        // Fetch user details
+        
         UserDetails userDetails = UserDAO.getUserDetailsById(userId);
         
-        // Fetch all related details
+         
         List<EducationDetails> educationDetails = educationService.getEducationDetailsByUserId(userId);
         List<BankDetails> bankDetails = bankService.getBankDetailsByUserId(userId);
         List<FamilyDetails> familyDetails = familyService.getFamilyDetailsByUserId(userId);
@@ -235,12 +235,12 @@ public class UserDetailServlet extends HttpServlet {
                 }else if ("basic".equals(type)) {
                 	
                 	
-                    // Handle basic information update
+                     
                     UserDetails userDetails = UserDAO.getUserDetailsById(userId);
                     
                     
                     
-                    // Update basic information
+                     
                     userDetails.setFirstName(request.getParameter("firstName"));
                     userDetails.setLastName(request.getParameter("lastName"));
                     userDetails.setEmail(request.getParameter("email"));
@@ -252,7 +252,7 @@ public class UserDetailServlet extends HttpServlet {
                     
                    
                     
-                    // Handle file upload
+                    
                     Part filePart = request.getPart("profilePicture");
                     if (filePart != null && filePart.getSize() > 0) {
                         String fileName = getFileName(filePart);
@@ -277,7 +277,7 @@ public class UserDetailServlet extends HttpServlet {
                     boolean success = userDAO.updateUserDetailsForSingleEmployee(userDetails);
                     if (success) {
                         session.setAttribute("successMessage", "Basic information updated successfully.");
-                        // Update session with new user details
+                         
                         session.setAttribute("employee", userDetails);
                     } else {
                         session.setAttribute("errorMessage", "Failed to update basic information.");
@@ -332,7 +332,7 @@ public class UserDetailServlet extends HttpServlet {
     }
     
     
- // Helper method to get file name from part
+ 
     private String getFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
         String[] tokens = contentDisp.split(";");

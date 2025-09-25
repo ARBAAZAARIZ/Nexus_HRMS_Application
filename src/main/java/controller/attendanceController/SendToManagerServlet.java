@@ -1,6 +1,7 @@
 package controller.attendanceController;
 
 import dao.attendanceDao.ManagerDao;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.net.URLEncoder;
+
 
 @WebServlet("/sendToManagerServlet")
 public class SendToManagerServlet extends HttpServlet {
@@ -51,5 +53,6 @@ public class SendToManagerServlet extends HttpServlet {
            
             response.sendRedirect("attendanceServlet");
         }
+
     }
 }

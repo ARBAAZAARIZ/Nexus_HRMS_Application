@@ -25,7 +25,7 @@ public class ForgotPasswordOtpServlet extends HttpServlet {
             return;
         }
 
-        // OTP matched - move to change password modal
+        
         request.setAttribute("openChangePassModal", true);
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }

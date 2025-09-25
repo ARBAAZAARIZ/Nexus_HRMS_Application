@@ -55,14 +55,16 @@
       <div class="container-fluid">
         <div class="row">
 
-    
+\
           <div class="col-md-3 mb-3 left-column">
            <div class="card text-center"> 
            <div class="card-body"> 
            <h6 class="text-muted"><c:out value="${greeting }"/> <c:out value="${username}"/></h6>
             <h4><c:out value="${currentTime}"/></h4> 
             <div class="my-3"> 
-            <img src="${profile}" alt="Profile Image" class="rounded-circle img-fluid" width="140"> 
+
+            <img src="images/${profile}" alt="Profile Image" class="rounded-circle img-fluid" width="140"> 
+
             </div> 
             <span class="badge badge-primary mb-2">Production: <c:out value="${production}"/></span>
              <p>Punch In at <c:out value="${punch_in}"/></p> <form action="attendanceServlet" method="post">
@@ -73,10 +75,12 @@
                </div> 
                </div>
 
+
           
           <div class="col-md-9">
 
        
+
             <div class="row mb-3">
               <div class="col-md-4">
                 <div class="card stat-card p-3 text-center">
@@ -99,7 +103,9 @@
                 <div class="card stat-card p-3 text-center">
                   <i class="fas fa-calendar-alt fa-2x text-warning mb-2"></i>
                   <h6>Total Hours Month</h6>
+
                   <h4 class="fw-bold"><c:out value ="${monthlyWorkingHours}"/>/ <c:out value ="${standardHour}"/></h4>
+
                   
                 </div>
               </div>
@@ -115,7 +121,9 @@
                   <strong>Productive Hours</strong><br><c:out value ="${todayWorkingHour }"/>
                 </div>
                 <div class="col-md-4">
+
                   <strong>Break Hours</strong><br><c:out value="${todayBreak} "/>
+
                 </div>
               </div>
               <div class="progress">
@@ -129,7 +137,7 @@
             <div class="card p-3">
 	             <div class="d-flex justify-content-between align-items-center mb-2">
     <h5 class="mb-0">Timesheet</h5>
- 
+
     <form action="sendToManagerServlet" method="post">
         <input type="hidden" name="userId" value="${userId}">
         <input type="hidden" name="workingHours" value="${todayWorkingHour}">
@@ -149,6 +157,7 @@
             <th>Lunch In</th>
             <th>Punch Out</th>
 
+
          
         </tr>
     </thead>
@@ -165,6 +174,7 @@
                 
             </tr>
         
+
     </tbody>
               </table>
             </div>

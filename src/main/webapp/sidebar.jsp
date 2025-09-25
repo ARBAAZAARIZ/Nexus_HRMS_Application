@@ -256,6 +256,35 @@
           </ul>
         </li>
         
+         
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-solid fa-user-tie"></i>
+            <p>Leaves <i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item"><a href="MasterLeavesServlet?action=view" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Add Leave Type</p></a></li>
+            <li class="nav-item"><a href="DepartmentWiseLeaveServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Add Leaves</p></a></li>
+            <li class="nav-item"><a href="DepartmentLeaveDetailsServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Department Leave Details</p></a></li>
+            <li class="nav-item"><a href="LeaveSettingsServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Leave Settings</p></a></li>
+          </ul>
+          
+        </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-business-time"></i>
+            <p>Payroll <i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item"><a href="AddEmployeeSalary" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Add Employee Salary</p></a></li>
+            <li class="nav-item"><a href="salaryConfig" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Master payroll</p></a></li>
+            <li class="nav-item"><a href="EmployeeSalaryList" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Employee Salary List</p></a></li>
+            <li class="nav-item"><a href="GeneratePayslipPDFMonthly" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Generate Payslip Monthly</p></a></li>
+             <li class="nav-item"><a href="PayslipHistory" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Transaction History</p></a></li>
+          </ul>
+        </li>
+        
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-chart-bar"></i>
@@ -268,7 +297,7 @@
             <li class="nav-item"><a href="BbEmployeeReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Employee Report</p></a></li>
             <li class="nav-item"><a href="BbAttendanceReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Attendance Report</p></a></li>
             <li class="nav-item"><a href="BbLeaveReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Leave Report</p></a></li>
-            <li class="nav-item"><a href="BbPayslipReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Payslip Report</p></a></li>
+            <li class="nav-item"><a href="BbPayslipReportServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Payslip Report</p></a></li>
             <li class="nav-item"><a href="BbProjectReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Project Report</p></a></li>
             <li class="nav-item"><a href="BbTaskReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Task Report</p></a></li>
           </ul>
@@ -286,6 +315,142 @@
         
           
         
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-chart-bar"></i>
+            <p>
+              Attendance
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+         <ul class="nav nav-treeview">
+              <li class="nav-item"><a href="todaysAttendanceServlet" class="nav-link"><i class="fas fa-business-time nav-icon"></i><p>Attendance</p></a>
+              </li>
+          </ul>
+        </li>
+        
+        
+                <!-- Master Document -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-file-alt"></i>
+            <p>Master Document <i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+
+            <!-- Add Master Document -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <p>Add Master Document <i class="fas fa-angle-left right"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="AddAdminDocumentName" class="nav-link">
+                    <p>Add Document Name (Admin)</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="AddEmpDocumentName" class="nav-link">
+                    <p>Add Document Name (Employee)</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Master Document List -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <p>Master Document List <i class="fas fa-angle-left right"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="AdminDocumentsList" class="nav-link">
+                    <p>Admin Document List</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="EmployeeDocumentsList" class="nav-link">
+                    <p>Employee Document List</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+        
+                <li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-upload"></i>
+    <p>Documents <i class="fas fa-angle-left right"></i></p>
+  </a>
+  <ul class="nav nav-treeview">
+
+    <li class="nav-item">
+      <a href="UploadDocumentsAdmin" class="nav-link">
+        <p>Upload Document</p>
+      </a>
+    </li>
+
+    <!-- Uploaded Document List (with Admin & Employee) -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <p>Uploaded Document List <i class="fas fa-angle-left right"></i></p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="UploadedAdminDocumentList" class="nav-link">
+            <p>Admin Document</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="UploadedEmployeeDocumentList" class="nav-link">
+            <p>Employee Document</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+</li>
+
+<li class="nav-item">
+  <a href="PromotionController?action=list" class="nav-link">
+    <i class="nav-icon fas fa-arrow-up"></i>
+    <p>Promotion</p>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="ResignationController?action=list" class="nav-link">
+    <i class="nav-icon fas fa-user-minus"></i>
+    <p>Resignation</p>
+  </a>
+</li>
+
+
+<li class="nav-item">
+<a href="TerminationController?action=list" class="nav-link">
+
+    <i class="nav-icon fas fa-user-slash"></i>
+    <p>Termination</p>
+  </a>
+</li>
+
+
+ <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-solid fa-user-tie"></i>
+            <p>Event <i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item"><a href="JC_EventServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Add Event</p></a></li>
+            <li class="nav-item"><a href="event-types" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Add Master Event</p></a></li>
+            <li class="nav-item"><a href="EventServlets_1" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Event List</p></a></li>
+          </ul>
+        </li>
+        
+        
         <li class="nav-item">
           <a href="${pageContext.request.contextPath}/Admin_AssignedTicket?action=view" class="nav-link">
             <i class="nav-icon fas fa-life-ring"></i>
@@ -302,15 +467,27 @@
           </a>
         </li>
         
+        
+         <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+            <p>Leaves<i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item"><a href="LeaveApprovalServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Leave Approvals</p></a></li>
+            <li class="nav-item"><a href="LeaveAllocationServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Leave Allocations</p></a></li>
+            <li class="nav-item"><a href="ManagerLeaveStatusServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Leave History</p></a></li>
+          </ul>
+        </li>
+        
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
-            <p>Team Management <i class="fas fa-angle-left right"></i></p>
+            <p>Attendance <i class="fas fa-angle-left right"></i></p>
           </a>
           <ul class="nav nav-treeview">
-            <li class="nav-item"><a href="my-team.jsp" class="nav-link"><i class="fas fa-user-friends nav-icon"></i><p>My Team</p></a></li>
-            <li class="nav-item"><a href="performance-review.jsp" class="nav-link"><i class="fas fa-star nav-icon"></i><p>Performance</p></a></li>
-            <li class="nav-item"><a href="attendance-tracker.jsp" class="nav-link"><i class="fas fa-calendar-check nav-icon"></i><p>Attendance</p></a></li>
+            <li class="nav-item"><a href="managerTimeSheetServlet" class="nav-link"><i class="fas fa-user-friends nav-icon"></i><p>Attendance</p></a></li>
+         
           </ul>
         </li>
          <li class="nav-item">
@@ -331,6 +508,18 @@
             <li class="nav-item"><a href="training-type.jsp" class="nav-link"><i class="fas fa-tags nav-icon"></i><p>Training Types</p></a></li>
             <li class="nav-item"><a href="trainer-list.jsp" class="nav-link"><i class="fas fa-chalkboard-teacher nav-icon"></i><p>Trainers</p></a></li>
             <li class="nav-item"><a href="training-list.jsp" class="nav-link"><i class="fas fa-list nav-icon"></i><p>Training List</p></a></li>
+          </ul>
+        </li>
+        
+         <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-solid fa-user-tie"></i>
+            <p>Event <i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item"><a href="JC_EventServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Add Event</p></a></li>
+            <li class="nav-item"><a href="event-types" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Add Master Event</p></a></li>
+            <li class="nav-item"><a href="EventServlets_1" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Event List</p></a></li>
           </ul>
         </li>
         
@@ -370,8 +559,7 @@
         
         
         
-        
-           <li class="nav-item">
+
           <a href="attendanceServlet" class="nav-link">
             <i class="nav-icon fas fa-calendar-check"></i>
             <p>Attendance</p>
@@ -379,10 +567,49 @@
         </li>
         
         <li class="nav-item">
-          <a href="leave-request.jsp" class="nav-link">
-            <i class="nav-icon fas fa-calendar-minus"></i>
-            <p>Leave Management</p>
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+            <p>Leave<i class="fas fa-angle-left right"></i></p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item"><a href="ApplyLeaveServlet" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Apply Leave</p></a></li>
+            </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-file-alt"></i>
+            <p>Documents <i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="CompanyLetters" class="nav-link">
+                <p>Company Letters</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="MyDocuments" class="nav-link">
+                <p>My Documents</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="UploadDocumentsEmp" class="nav-link">
+                <p>Upload Documents</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        
+         <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-solid fa-user-tie"></i>
+            <p>Event <i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+<li class="nav-item"><a href="${pageContext.request.contextPath}/JC_EventServlet?action=view" class="nav-link">
+            <i class="far fa-circle nav-icon"></i><p>Calendar</p></a></li>          
+            </ul>
         </li>
         
         

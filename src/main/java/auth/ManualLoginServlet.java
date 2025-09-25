@@ -40,8 +40,7 @@ public class ManualLoginServlet extends HttpServlet {
 			
 			 String email = request.getParameter("email");
 		     String password = request.getParameter("password");
-		     
-//		     UserDetails user = UserDetailsHelper.getUserDetailsByEmail(email);
+
 		     
 		     Users user =employeeService.getEmployeeByEmail(email);
 
@@ -74,6 +73,19 @@ public class ManualLoginServlet extends HttpServlet {
 		     System.out.println(employee);
 		  
 		     request.getSession().setAttribute("employee", employee);
+		     
+		     
+		     int departmentId = user.getDepartmentId(); 
+		     
+		     	request.getSession().setAttribute("departmentId", departmentId);
+		     
+		     String managerName = employee.getFirstName(); 
+
+		     request.getSession().setAttribute("managerName", managerName);
+		     
+		     request.getSession().setAttribute("userId", user.getUserId());
+		     
+		     
 		     request.setAttribute("message", "Login Successful !!!");
 		     request.getRequestDispatcher("Home").forward(request, response);
 		     

@@ -2,11 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Admin Dashboard | Attendance</title>
+
 
 <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -40,12 +43,12 @@
 <!-- summernote -->
 <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
+
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	
-	
-	
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -56,7 +59,9 @@
   <div class="content-wrapper">
     <div class="content-header">
       <div class="container-fluid">
+
         <h1 class="m-0">Manager - Employee Attendance Dashboard</h1>
+
       </div>
     </div>
 
@@ -107,6 +112,7 @@
 
         
         <div class="card mt-4">
+
           <div class="card-header bg-success text-white">
             <h3 class="card-title">Present Employees</h3>
           </div>
@@ -115,6 +121,7 @@
               <thead>
                 <tr>
                   <th>User ID</th>
+
                   <th>Check IN </th>
                   <th>Lunch Out</th>
                    <th>Lunch In</th>
@@ -133,12 +140,15 @@
                      <td>${emp.check_out }</td>
                       <td>${emp.working_hours}</td>
                        
+
+
                   </tr>
                 </c:forEach>
               </tbody>
             </table>
           </div>
         </div>
+
 
         <div class="card mt-4">
           <div class="card-header bg-danger text-white">
@@ -173,7 +183,7 @@
 
 <jsp:include page="../../../footer.jsp"></jsp:include>
 
-<!-- Scripts -->
+
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
@@ -196,4 +206,6 @@
   });
 </script>
 </body>
+
 </html>
+

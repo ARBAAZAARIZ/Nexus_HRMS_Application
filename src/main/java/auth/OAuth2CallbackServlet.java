@@ -76,9 +76,22 @@ public class OAuth2CallbackServlet extends HttpServlet {
 	                return;
 	            }
 			    
+			    int departmentId = employee.getDepartmentId(); 
+			     
+		     	request.getSession().setAttribute("departmentId", departmentId);
 			    
-			    // Valid and active user
+			    
+			    
 			    request.getSession().setAttribute("employee", employee);
+			    
+			    
+			    
+			    request.getSession().setAttribute("userId", employee.getUserId());
+			    
+			    
+			    String managerName = employee.getFirstName(); 
+
+			     request.getSession().setAttribute("managerName", managerName);
 			    
 			    request.setAttribute("message", "Login Successful !!!");
 			    System.out.println();

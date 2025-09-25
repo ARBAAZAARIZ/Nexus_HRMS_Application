@@ -10,11 +10,14 @@ import model.Attendance;
 import service.attendanceService.AttendanceService;
 
 import java.io.IOException;
+
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+
+
 import java.time.format.DateTimeFormatter;
 
 
@@ -53,6 +56,7 @@ public class AttendanceServlet extends HttpServlet {
         request.setAttribute("profile", user.getProfilePicture());
         request.setAttribute("username", user.getFirstName());
 
+
         Attendance attend = null;
         try {
         	
@@ -61,6 +65,8 @@ public class AttendanceServlet extends HttpServlet {
             request.setAttribute("punch_in", attend != null ? attend.getCheck_in() : "00:00");
             
             request.setAttribute("todayAttendance", attend);
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,6 +78,7 @@ public class AttendanceServlet extends HttpServlet {
         Double todayWorkingHour = null ;
         Double WeeklyWorkingHours = null ; 
         Double MonthlyWorkingHours = null ;
+
         int todayBreakHours = 0 ;
         
        
@@ -79,11 +86,14 @@ public class AttendanceServlet extends HttpServlet {
         
         int standardHour = currentMonth.lengthOfMonth()*9;
         
+
         try {
 			todayWorkingHour = hours.getWeeklyWorkingHours(userId);
 			WeeklyWorkingHours = hours.getWeeklyWorkingHours(userId);
 			MonthlyWorkingHours = hours.getMonthlyWorkingHours(userId);
+
 			todayBreakHours =(int) hours.getTodayBreakHours(userId);
+
 			
 			
 		} catch (SQLException e) {
@@ -92,7 +102,9 @@ public class AttendanceServlet extends HttpServlet {
 		}
      
         double productiveHours = todayWorkingHour ; 
+
         int breakHours = (todayBreakHours)  ; 
+
         double totalTime = productiveHours + breakHours;
     
 		 
@@ -105,6 +117,14 @@ public class AttendanceServlet extends HttpServlet {
         //System.out.println(nextAction + "from serlvert");
         LocalDate today = LocalDate.now();
         request.setAttribute("standardHour", standardHour);
+
+        System.out.println(productivePercent);
+        System.out.println(breakPercent);
+        request.setAttribute("nextAction", nextAction);
+        System.out.println(nextAction + "from serlvert");
+     
+        request.setAttribute("punch_in", attend != null ? attend.getCheck_in() : null);
+
         request.setAttribute("todayWorkingHour", todayWorkingHour);
         request.setAttribute("weeklyWorkingHour",  WeeklyWorkingHours);
         request.setAttribute("monthlyWorkingHours",  MonthlyWorkingHours);
@@ -112,8 +132,10 @@ public class AttendanceServlet extends HttpServlet {
         request.setAttribute("productionPre",productivePercent );
         request.setAttribute("breakPre", breakPercent);
         request.setAttribute("employee", user);
+
         request.setAttribute("userId", userId);
         request.setAttribute("todayDate", today);
+
         request.getRequestDispatcher("WEB-INF/views/attendanceVeiw/attendance.jsp")
                 .forward(request, response);
     }
@@ -166,6 +188,7 @@ HttpSession session =request.getSession(false);
         request.setAttribute("profile", user.getProfilePicture());
         request.setAttribute("username", user.getFirstName());
 
+
         
         
          YearMonth currentMonth = YearMonth.now();
@@ -213,9 +236,17 @@ HttpSession session =request.getSession(false);
 		request.setAttribute("production", attend != null ?attend.getProduction_hours() : "--:--");
 		
         request.setAttribute("punch_in", attend != null ? attend.getCheck_in() : "--:--");
+
+        
+		request.setAttribute("production", attend != null ?
+		 attend.getProduction_hours() : null);
+		
+        request.setAttribute("punch_in", attend != null ? attend.getCheck_in() : null);
+
         
 
         request.getRequestDispatcher("WEB-INF/views/attendanceVeiw/attendance.jsp")
                 .forward(request, response);
     }
 }
+

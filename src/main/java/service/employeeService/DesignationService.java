@@ -16,22 +16,22 @@ public class DesignationService {
 	
 	
 
-    // Add new designation
+   
     public boolean addDesignation(Designations d) {
         return designationDAO.addDesignation(d);
     }
 
-    // Update existing designation
+    
     public boolean updateDesignation(Designations d) {
         return designationDAO.updateDesignation(d);
     }
 
-    // Get all designations with department name
+   
     public List<DesignationHelper> getAllDesignations() {
         return designationDAO.getAllDesignations();
     }
 
-    // Get designation by ID (for edit modal)
+    
     public Designations getDesignationById(int id) {
         return designationDAO.getDesignationById(id);
     }

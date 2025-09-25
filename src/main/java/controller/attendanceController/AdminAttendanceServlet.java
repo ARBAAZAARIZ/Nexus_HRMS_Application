@@ -27,6 +27,8 @@ public class AdminAttendanceServlet extends HttpServlet {
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/attendanceVeiw/manager.jsp");
+
+
         dispatcher.forward(request, response);
     }
 }

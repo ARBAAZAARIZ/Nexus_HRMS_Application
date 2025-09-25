@@ -20,7 +20,7 @@ public class ForgotPasswordEmailServlet extends HttpServlet {
         String email = request.getParameter("email");
         HttpSession session = request.getSession();
 
-        // Check if user exists
+        
         UserDAO userDao = new UserDAO();
         boolean emailExists = userDao.isEmailExists(email);
         if (!emailExists) {
@@ -29,15 +29,15 @@ public class ForgotPasswordEmailServlet extends HttpServlet {
             return;
         }
 
-        // Generate 6 digit OTP
+       
         String otp = String.format("%06d", (int)(Math.random() * 999999));
         session.setAttribute("forgotPasswordEmail", email);
         session.setAttribute("forgotPasswordOtp", otp);
 
-        // Send OTP email
+        
         EmailSender.sendOtpEmail(email,otp);
 
-        // Forward to login.jsp with flag to open OTP modal
+        
         request.setAttribute("openOtpModal", true);
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }

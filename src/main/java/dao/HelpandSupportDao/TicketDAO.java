@@ -12,9 +12,9 @@ import util.DatabaseConnection;
 
 public class TicketDAO {
 
-    // Raise Ticket (user side)
+    
     public boolean raiseTicket(Ticket ticket) {
-        // assign_to is NULL when raised, status = 'Raised'
+         
         String sql = "INSERT INTO tickets (user_id, ticket_title, ticket_description, image_path, created_at, status) " +
                      "VALUES (?, ?, ?, ?, ?, 'Raised')";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -66,7 +66,7 @@ public class TicketDAO {
                 ticket.setAttachment(rs.getString("image_path"));
                 ticket.setCreatedAt(rs.getTimestamp("created_at"));
 
-                // Assigned to
+                 
                 ticket.setAssignTo(rs.getInt("assigned_user_id"));
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");

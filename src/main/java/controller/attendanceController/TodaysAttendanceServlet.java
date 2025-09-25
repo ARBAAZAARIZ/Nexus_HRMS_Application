@@ -23,6 +23,7 @@ public class TodaysAttendanceServlet extends HttpServlet {
         AttendanceDAO dao = new AttendanceDAO();
         try {
             List<Attendance> todaysAttendance = dao.getTodaysAttendance(userId);
+
             int total_present = dao.getAllPresent();
             int total_absent = dao.getAllAbsent();
             int total_employee = dao.getTotalEmployees();
@@ -31,6 +32,7 @@ public class TodaysAttendanceServlet extends HttpServlet {
             request.setAttribute("total_employee", total_employee);
             request.setAttribute("todaysAttendance", todaysAttendance);
             System.out.println(todaysAttendance );
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

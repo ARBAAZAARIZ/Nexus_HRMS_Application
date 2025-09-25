@@ -21,7 +21,7 @@ public class ExperienceDetailsService {
     }
     
     public boolean addExperienceDetail(ExperienceDetails experience) {
-        // Check if experience already exists
+         
         if (experienceDetailsDAO.isExperienceExists(experience.getCompanyName(), experience.getDesignationName(), experience.getUserId())) {
             throw new IllegalArgumentException("Experience with the same company and designation already exists for this user");
         }
@@ -29,7 +29,7 @@ public class ExperienceDetailsService {
     }
     
     public boolean updateExperienceDetail(ExperienceDetails experience) {
-        // Check if experience exists for other records (excluding current one)
+         
         ExperienceDetails existing = experienceDetailsDAO.getExperienceDetailById(experience.getExperienceDetailId());
         if (existing != null && 
             (!existing.getCompanyName().equals(experience.getCompanyName()) || !existing.getDesignationName().equals(experience.getDesignationName()))) {

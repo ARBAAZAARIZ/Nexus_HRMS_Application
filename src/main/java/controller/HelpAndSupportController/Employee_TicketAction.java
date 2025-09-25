@@ -21,7 +21,7 @@ public class Employee_TicketAction extends HttpServlet {
         service = new Employee_TicketService();
     }
 
-    // Show all assigned tickets
+     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

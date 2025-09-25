@@ -15,7 +15,7 @@ public class EmailSender {
 	public static void sendWelcomeEmail(String toEmail, String plainPassword) {
         final String fromEmail = "md.rocks284@gmail.com";
         final String host = "smtp.gmail.com";
-        final String password = "sqirwgaviexfgdkh"; // Use App Password if 2FA is enabled
+        final String password = "sqirwgaviexfgdkh";
 //   app password -->    sqir wgav iexf gdkh
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -50,7 +50,7 @@ public class EmailSender {
     public static void sendOtpEmail(String toEmail, String otp) {
         final String fromEmail = "md.rocks284@gmail.com";
         final String host = "smtp.gmail.com";
-        final String password = "sqirwgaviexfgdkh"; // Your app password
+        final String password = "sqirwgaviexfgdkh"; 
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");

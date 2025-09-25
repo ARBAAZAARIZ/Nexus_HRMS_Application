@@ -33,9 +33,9 @@ public class Employee_TicketDAO {
 	                t.setAttachment(rs.getString("image_path"));
 	                t.setCreatedAt(rs.getTimestamp("created_at"));
 	                t.setStatus(rs.getString("status"));
-	                t.setSolution(rs.getString("solution"));          // From ticket_replies
-	                t.setReplyMessage(rs.getString("reply_message"));  // From ticket_replies
-	                t.setAssignToName(rs.getString("reply_by_name"));  // Name of employee replying
+	                t.setSolution(rs.getString("solution"));          
+	                t.setReplyMessage(rs.getString("reply_message")); 
+	                t.setAssignToName(rs.getString("reply_by_name"));  
 
 	                tickets.add(t);
 	            }
@@ -72,7 +72,7 @@ public class Employee_TicketDAO {
 	        ps.setInt(1, ticketId);
 	        ps.setString(2, solution);
 	        ps.setString(3, replyMessage);
-	        ps.setInt(4, replyBy); // logged-in employee
+	        ps.setInt(4, replyBy); 
 
 	        return ps.executeUpdate() > 0;
 
