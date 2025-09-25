@@ -26,7 +26,9 @@ public class AdminAttendanceServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("adminAttendance.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/attendanceVeiw/manager.jsp");
+
+
         dispatcher.forward(request, response);
     }
 }

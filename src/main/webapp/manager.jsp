@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Attendance Dashboard</title>
+  <title>AdminLTE 3 | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
@@ -43,11 +43,9 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
-<jsp:include page="../../../navbar.jsp"></jsp:include>
+<jsp:include page="navbar.jsp"></jsp:include>
 
-<jsp:include page="../../../sidebar.jsp"></jsp:include>
-
-
+<jsp:include page="sidebar.jsp"></jsp:include>
 
 <div class="wrapper">
   <div class="content-wrapper">
@@ -55,127 +53,87 @@
       <div class="container-fluid">
         <div class="row">
 
-\
-          <div class="col-md-3 mb-3 left-column">
-           <div class="card text-center"> 
-           <div class="card-body"> 
-           <h6 class="text-muted"><c:out value="${greeting }"/> <c:out value="${username}"/></h6>
-            <h4><c:out value="${currentTime}"/></h4> 
-            <div class="my-3"> 
+          <!-- Manager Profile -->
+          <div class="col-md-3">
+            <div class="profile-card text-center">
+              <img src="${managerProfile}" alt="Manager Image" class="rounded-circle mb-3" width="120">
+              <h5 class="mb-0"><c:out value="${managerName}"/></h5>
+              <small class="d-block mb-3 text-light">Manager</small>
+              <p class="mb-1"><i class="far fa-envelope"></i> <c:out value="${managerEmail}"/></p>
+              <p class="mb-1"><i class="fas fa-users"></i> Team Size: <c:out value="${teamSize}"/></p>
+            </div>
+          </div>
 
-            <img src="images/${profile}" alt="Profile Image" class="rounded-circle img-fluid" width="140"> 
-
-            </div> 
-            <span class="badge badge-primary mb-2">Production: <c:out value="${production}"/></span>
-             <p>Punch In at <c:out value="${punch_in}"/></p> <form action="attendanceServlet" method="post">
-              <input type="hidden" value="${nextAction}" name="nextAction"> 
-              <button type="submit" class="btn btn-dark btn-block"> <c:out value="${nextAction}"/> </button>
-               </form> 
-               </div> 
-               </div> 
-               </div>
-
-
-          
+          <!-- Manager Stats + Pending Approvals -->
           <div class="col-md-9">
 
-       
-
+            <!-- Quick Stats -->
             <div class="row mb-3">
               <div class="col-md-4">
                 <div class="card stat-card p-3 text-center">
-                  <i class="fas fa-calendar-day fa-2x text-primary mb-2"></i>
-                  <h6>Total Hours Today</h6>
-                  <h4 class="fw-bold"><c:out value ="${todayWorkingHour }"/>/ 9</h4>
-                  
-                  
+                  <i class="fas fa-user-check fa-2x text-success mb-2"></i>
+                  <h6>Employees Present</h6>
+                  <h4 class="fw-bold">25</h4>
+                  <small class="text-muted">Out of 30</small>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="card stat-card p-3 text-center">
-                  <i class="fas fa-calendar-week fa-2x text-success mb-2"></i>
-                  <h6>Total Hours Week</h6>
-                  <h4 class="fw-bold"> <c:out value ="${weeklyWorkingHour}"/>/ 40</h4>
-                 
+                  <i class="fas fa-clock fa-2x text-primary mb-2"></i>
+                  <h6>Pending Approvals</h6>
+                  <h4 class="fw-bold">5</h4>
+                  <small class="text-warning">Needs Action</small>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="card stat-card p-3 text-center">
-                  <i class="fas fa-calendar-alt fa-2x text-warning mb-2"></i>
-                  <h6>Total Hours Month</h6>
-
-                  <h4 class="fw-bold"><c:out value ="${monthlyWorkingHours}"/>/ <c:out value ="${standardHour}"/></h4>
-
-                  
+                  <i class="fas fa-chart-line fa-2x text-info mb-2"></i>
+                  <h6>Avg. Productivity</h6>
+                  <h4 class="fw-bold">7.8 hrs</h4>
+                  <small class="text-success">↑ 12% vs Last Week</small>
                 </div>
               </div>
             </div>
 
-          
-            <div class="card mb-3 p-3">
-              <div class="row text-center mb-3">
-                <div class="col-md-4">
-                  <strong>Total Working Hours</strong><br>09h 00m
-                </div>
-                <div class="col-md-4">
-                  <strong>Productive Hours</strong><br><c:out value ="${todayWorkingHour }"/>
-                </div>
-                <div class="col-md-4">
-
-                  <strong>Break Hours</strong><br><c:out value="${todayBreak} "/>
-
-                </div>
-              </div>
-              <div class="progress">
-                <div class="progress-bar bg-success" style="width:${productionPre}">Productive</div>
-                
-                <div class="progress-bar bg-warning" style="width:${breakPre}%">Break</div>
-              </div>
-            </div>
-
-           
+            <!-- Approval Table -->
             <div class="card p-3">
-	             <div class="d-flex justify-content-between align-items-center mb-2">
-    <h5 class="mb-0">Timesheet</h5>
-
-    <form action="sendToManagerServlet" method="post">
-        <input type="hidden" name="userId" value="${userId}">
-        <input type="hidden" name="workingHours" value="${todayWorkingHour}">
-        <input type="hidden" name="date" value="${todayDate}">
-        <button type="submit" class="btn btn-primary btn-sm approval-btn">
-            <i class="fas fa-paper-plane"></i> Send to Manager
-        </button>
-    </form>
-
-</div>
-              <table class="table table-striped table-bordered" id="attendanceTable">
-                <thead>
-               <tr>
-            <th>Date</th>
-            <th>Punch In</th>
-            <th>Lunch Out</th>
-            <th>Lunch In</th>
-            <th>Punch Out</th>
-
-
-         
-        </tr>
-    </thead>
-    <tbody>
-
-      
-            <tr>
-                <td><c:out value="${todayAttendance.date}"/></td>
-                <td><c:out value="${todayAttendance.check_in}"/></td>
-                <td><c:out value="${todayAttendance.lunch_out}"/></td>
-                <td><c:out value="${todayAttendance.lunch_in}"/></td>
-                <td><c:out value="${todayAttendance.check_out}"/></td>
-                
-                
-            </tr>
-        
-
-    </tbody>
+              <h5 class="mb-3">Timesheets Awaiting Approval</h5>
+              <table class="table table-striped table-bordered" id="approvalTable">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Punch In</th>
+                    <th>Punch Out</th>
+                    <th>Total Hours</th>
+                    <th>Break</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Dynamic rows -->
+                  <c:forEach var="sheet" items="${pendingTimesheets}">
+                    <tr>
+                      <td><c:out value="${sheet.employeeName}"/></td>
+                      <td><c:out value="${sheet.punchIn}"/></td>
+                      <td><c:out value="${sheet.punchOut}"/></td>
+                      <td><c:out value="${sheet.totalHours}"/></td>
+                      <td><c:out value="${sheet.breakTime}"/></td>
+                      <td><span class="badge bg-warning">Pending</span></td>
+                      <td>
+                        <form action="managerApprovalServlet" method="post" class="d-inline">
+                          <input type="hidden" name="sheetId" value="${sheet.id}">
+                          <button type="submit" name="action" value="approve" class="btn btn-success btn-sm">
+                            <i class="fas fa-check"></i>
+                          </button>
+                          <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm">
+                            <i class="fas fa-times"></i>
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                  </c:forEach>
+                </tbody>
               </table>
             </div>
 
@@ -186,10 +144,7 @@
   </div>
 </div>
 
-
-
-
-<jsp:include page="../../../footer.jsp"></jsp:include>
+<jsp:include page="footer.jsp"></jsp:include>
 
 
 <!-- jQuery -->

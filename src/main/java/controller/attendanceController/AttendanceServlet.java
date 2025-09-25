@@ -10,9 +10,14 @@ import model.Attendance;
 import service.attendanceService.AttendanceService;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+
+
 import java.time.format.DateTimeFormatter;
 
 
@@ -50,10 +55,18 @@ public class AttendanceServlet extends HttpServlet {
         request.setAttribute("currentTime", now.format(DateTimeFormatter.ofPattern("hh:mm a, dd MMM yyyy")));
         request.setAttribute("profile", user.getProfilePicture());
         request.setAttribute("username", user.getFirstName());
-        request.setAttribute("userId", userId);
+
+
         Attendance attend = null;
         try {
+        	
             attend = attendanceService.getTodayAttendance(userId);
+            
+            request.setAttribute("punch_in", attend != null ? attend.getCheck_in() : "00:00");
+            
+            request.setAttribute("todayAttendance", attend);
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,12 +78,22 @@ public class AttendanceServlet extends HttpServlet {
         Double todayWorkingHour = null ;
         Double WeeklyWorkingHours = null ; 
         Double MonthlyWorkingHours = null ;
-        Double todayBreakHours = null ;
+
+        int todayBreakHours = 0 ;
+        
+       
+        YearMonth currentMonth = YearMonth.now();
+        
+        int standardHour = currentMonth.lengthOfMonth()*9;
+        
+
         try {
 			todayWorkingHour = hours.getWeeklyWorkingHours(userId);
 			WeeklyWorkingHours = hours.getWeeklyWorkingHours(userId);
 			MonthlyWorkingHours = hours.getMonthlyWorkingHours(userId);
-			todayBreakHours = hours.getTodayBreakHours(userId);
+
+			todayBreakHours =(int) hours.getTodayBreakHours(userId);
+
 			
 			
 		} catch (SQLException e) {
@@ -79,12 +102,21 @@ public class AttendanceServlet extends HttpServlet {
 		}
      
         double productiveHours = todayWorkingHour ; 
-        double breakHours = todayBreakHours ; 
+
+        int breakHours = (todayBreakHours)  ; 
+
         double totalTime = productiveHours + breakHours;
     
 		 
         int productivePercent = (int)((productiveHours / totalTime) * 100);
         int breakPercent = (int)((breakHours / totalTime) * 100);
+
+        //System.out.println(productivePercent);
+        //System.out.println(breakPercent);
+        request.setAttribute("nextAction", nextAction);
+        //System.out.println(nextAction + "from serlvert");
+        LocalDate today = LocalDate.now();
+        request.setAttribute("standardHour", standardHour);
 
         System.out.println(productivePercent);
         System.out.println(breakPercent);
@@ -92,6 +124,7 @@ public class AttendanceServlet extends HttpServlet {
         System.out.println(nextAction + "from serlvert");
      
         request.setAttribute("punch_in", attend != null ? attend.getCheck_in() : null);
+
         request.setAttribute("todayWorkingHour", todayWorkingHour);
         request.setAttribute("weeklyWorkingHour",  WeeklyWorkingHours);
         request.setAttribute("monthlyWorkingHours",  MonthlyWorkingHours);
@@ -99,6 +132,10 @@ public class AttendanceServlet extends HttpServlet {
         request.setAttribute("productionPre",productivePercent );
         request.setAttribute("breakPre", breakPercent);
         request.setAttribute("employee", user);
+
+        request.setAttribute("userId", userId);
+        request.setAttribute("todayDate", today);
+
         request.getRequestDispatcher("WEB-INF/views/attendanceVeiw/attendance.jsp")
                 .forward(request, response);
     }
@@ -150,11 +187,62 @@ HttpSession session =request.getSession(false);
         request.setAttribute("currentTime", now.format(DateTimeFormatter.ofPattern("hh:mm a, dd MMM yyyy")));
         request.setAttribute("profile", user.getProfilePicture());
         request.setAttribute("username", user.getFirstName());
+
+
+        
+        
+         YearMonth currentMonth = YearMonth.now();
+        
+        int standardHour = currentMonth.lengthOfMonth()*9;
+        Double todayWorkingHour = null ;
+        Double WeeklyWorkingHours = null ; 
+        Double MonthlyWorkingHours = null ;
+        Double todayBreakHours = null ;
+        
+        try {
+			todayWorkingHour = action.getWeeklyWorkingHours(userId);
+			WeeklyWorkingHours = action.getWeeklyWorkingHours(userId);
+			MonthlyWorkingHours = action.getMonthlyWorkingHours(userId);
+			todayBreakHours = action.getTodayBreakHours(userId);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+     
+        double productiveHours = todayWorkingHour ; 
+        double breakHours = todayBreakHours ; 
+        double totalTime = productiveHours + breakHours;
+    
+		 
+        int productivePercent = (int)((productiveHours / totalTime) * 100);
+        int breakPercent = (int)((breakHours / totalTime) * 100);
+ 
+        
+        
+      
+        LocalDate today = LocalDate.now();
+        request.setAttribute("standardHour", standardHour);
+        request.setAttribute("todayWorkingHour", todayWorkingHour);
+        request.setAttribute("weeklyWorkingHour",  WeeklyWorkingHours);
+        request.setAttribute("monthlyWorkingHours",  MonthlyWorkingHours);
+        request.setAttribute("todayBreak", todayBreakHours);
+        request.setAttribute("productionPre",productivePercent );
+        request.setAttribute("breakPre", breakPercent);
+        request.setAttribute("employee", user);
+        request.setAttribute("userId", userId);
+        request.setAttribute("todayDate", today);
+		request.setAttribute("production", attend != null ?attend.getProduction_hours() : "--:--");
+		
+        request.setAttribute("punch_in", attend != null ? attend.getCheck_in() : "--:--");
+
         
 		request.setAttribute("production", attend != null ?
 		 attend.getProduction_hours() : null);
 		
         request.setAttribute("punch_in", attend != null ? attend.getCheck_in() : null);
+
         
 
         request.getRequestDispatcher("WEB-INF/views/attendanceVeiw/attendance.jsp")

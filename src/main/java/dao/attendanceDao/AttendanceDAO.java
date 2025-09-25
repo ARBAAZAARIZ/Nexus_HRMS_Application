@@ -105,6 +105,7 @@ public class AttendanceDAO {
 
 
 
+
     private static final LocalTime ABSENT_CUTOFF = LocalTime.of(12, 0); 
 
  
@@ -133,8 +134,7 @@ public class AttendanceDAO {
                 }
             }
         }
-    }
-    
+    }   
     public Attendance getTodayAttendance(int userId ) throws SQLException {
     	
     	LocalDate today = LocalDate.now();
@@ -158,6 +158,7 @@ public class AttendanceDAO {
                     attend.setLate_hour(rs.getDouble("break_hour"));
                     attend.setUser_id(rs.getInt("user_id"));
                     System.out.println(attend.getCheck_in());
+
                     return attend;
                 }
             }
@@ -216,7 +217,9 @@ public class AttendanceDAO {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getDouble("break_hour");  
+
+                    return rs.getDouble("break_hour"); 
+
                 }
             }
         }
@@ -243,7 +246,63 @@ public class AttendanceDAO {
         }
         return 0.0;
     }
- 
+
+    
+    
+    public int getAllPresent() {
+        String sql = "SELECT COUNT(*) AS total_present FROM attendance WHERE status = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, "Present");  
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total_present");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0; 
+    }
+    
+    
+    public int getAllAbsent() {
+        String sql = "SELECT COUNT(*) AS total_absent FROM attendance WHERE status = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, "Absent");
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total_absent");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    
+    public int getTotalEmployees() {
+        String sql = "SELECT COUNT(*) AS total_employees FROM users WHERE status = 'ACTIVE'";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            
+            if (rs.next()) {
+                return rs.getInt("total_employees");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
     public List<Attendance> getTodaysAttendance(int userId) throws SQLException {
         List<Attendance> attendanceList = new ArrayList<>();
         LocalDate today = LocalDate.now();
@@ -271,6 +330,7 @@ public class AttendanceDAO {
         }
         return attendanceList;
     }
+
     
     
     public double getTotalWorkedHours(int userId, int month, int year) throws SQLException {
@@ -328,5 +388,6 @@ public class AttendanceDAO {
 	        }
 	        return 0;
 	    }
+
 
 }

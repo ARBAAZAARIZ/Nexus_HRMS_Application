@@ -43,9 +43,9 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
-<jsp:include page="../../../navbar.jsp"></jsp:include>
+<jsp:include page="navbar.jsp"></jsp:include>
 
-<jsp:include page="../../../sidebar.jsp"></jsp:include>
+<jsp:include page="sidebar.jsp"></jsp:include>
 
 
 
@@ -55,16 +55,14 @@
       <div class="container-fluid">
         <div class="row">
 
-\
+          <!-- Profile Card -->
           <div class="col-md-3 mb-3 left-column">
            <div class="card text-center"> 
            <div class="card-body"> 
            <h6 class="text-muted"><c:out value="${greeting }"/> <c:out value="${username}"/></h6>
             <h4><c:out value="${currentTime}"/></h4> 
             <div class="my-3"> 
-
-            <img src="images/${profile}" alt="Profile Image" class="rounded-circle img-fluid" width="140"> 
-
+            <img src="${profile}" alt="Profile Image" class="rounded-circle img-fluid" width="140"> 
             </div> 
             <span class="badge badge-primary mb-2">Production: <c:out value="${production}"/></span>
              <p>Punch In at <c:out value="${punch_in}"/></p> <form action="attendanceServlet" method="post">
@@ -75,107 +73,77 @@
                </div> 
                </div>
 
-
-          
+          <!-- Stats & Timesheet -->
           <div class="col-md-9">
 
-       
-
+            <!-- Stat Cards -->
             <div class="row mb-3">
               <div class="col-md-4">
                 <div class="card stat-card p-3 text-center">
                   <i class="fas fa-calendar-day fa-2x text-primary mb-2"></i>
                   <h6>Total Hours Today</h6>
-                  <h4 class="fw-bold"><c:out value ="${todayWorkingHour }"/>/ 9</h4>
-                  
-                  
+                  <h4 class="fw-bold">8.36 / 9</h4>
+                  <small class="text-success">↑ 5% This Week</small>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="card stat-card p-3 text-center">
                   <i class="fas fa-calendar-week fa-2x text-success mb-2"></i>
                   <h6>Total Hours Week</h6>
-                  <h4 class="fw-bold"> <c:out value ="${weeklyWorkingHour}"/>/ 40</h4>
-                 
+                  <h4 class="fw-bold">10 / 40</h4>
+                  <small class="text-success">↑ 7% Last Week</small>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="card stat-card p-3 text-center">
                   <i class="fas fa-calendar-alt fa-2x text-warning mb-2"></i>
                   <h6>Total Hours Month</h6>
-
-                  <h4 class="fw-bold"><c:out value ="${monthlyWorkingHours}"/>/ <c:out value ="${standardHour}"/></h4>
-
-                  
+                  <h4 class="fw-bold">75 / 98</h4>
+                  <small class="text-danger">↓ 8% Last Month</small>
                 </div>
               </div>
             </div>
 
-          
+            <!-- Progress Section -->
             <div class="card mb-3 p-3">
               <div class="row text-center mb-3">
                 <div class="col-md-4">
-                  <strong>Total Working Hours</strong><br>09h 00m
+                  <strong>Total Working Hours</strong><br>12h 36m
                 </div>
                 <div class="col-md-4">
-                  <strong>Productive Hours</strong><br><c:out value ="${todayWorkingHour }"/>
+                  <strong>Productive Hours</strong><br>08h 36m
                 </div>
                 <div class="col-md-4">
-
-                  <strong>Break Hours</strong><br><c:out value="${todayBreak} "/>
-
+                  <strong>Break Hours</strong><br>22m 15s
                 </div>
               </div>
               <div class="progress">
-                <div class="progress-bar bg-success" style="width:${productionPre}">Productive</div>
-                
-                <div class="progress-bar bg-warning" style="width:${breakPre}%">Break</div>
+                <div class="progress-bar bg-success" style="width: 70%">Productive</div>
+                <div class="progress-bar bg-warning" style="width: 10%">Break</div>
               </div>
             </div>
 
-           
+            <!-- Timesheet Table -->
             <div class="card p-3">
-	             <div class="d-flex justify-content-between align-items-center mb-2">
-    <h5 class="mb-0">Timesheet</h5>
-
-    <form action="sendToManagerServlet" method="post">
-        <input type="hidden" name="userId" value="${userId}">
-        <input type="hidden" name="workingHours" value="${todayWorkingHour}">
-        <input type="hidden" name="date" value="${todayDate}">
-        <button type="submit" class="btn btn-primary btn-sm approval-btn">
-            <i class="fas fa-paper-plane"></i> Send to Manager
-        </button>
-    </form>
-
-</div>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="mb-0">Timesheet</h5>
+                <button class="btn btn-primary btn-sm approval-btn">
+                  <i class="fas fa-paper-plane"></i> Send to Manager
+                </button>
+              </div>
               <table class="table table-striped table-bordered" id="attendanceTable">
-                <thead>
-               <tr>
-            <th>Date</th>
-            <th>Punch In</th>
-            <th>Lunch Out</th>
-            <th>Lunch In</th>
-            <th>Punch Out</th>
-
-
-         
-        </tr>
-    </thead>
-    <tbody>
-
-      
-            <tr>
-                <td><c:out value="${todayAttendance.date}"/></td>
-                <td><c:out value="${todayAttendance.check_in}"/></td>
-                <td><c:out value="${todayAttendance.lunch_out}"/></td>
-                <td><c:out value="${todayAttendance.lunch_in}"/></td>
-                <td><c:out value="${todayAttendance.check_out}"/></td>
-                
-                
-            </tr>
-        
-
-    </tbody>
+                <thead class="table-dark">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Punch In</th>
+                    <th>Punch Out</th>
+                    <th>Break</th>
+                    <th>Production Hours</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td colspan="5" class="text-center">No data available</td></tr>
+                </tbody>
               </table>
             </div>
 
@@ -189,7 +157,7 @@
 
 
 
-<jsp:include page="../../../footer.jsp"></jsp:include>
+<jsp:include page="footer.jsp"></jsp:include>
 
 
 <!-- jQuery -->

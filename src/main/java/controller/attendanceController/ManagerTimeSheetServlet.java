@@ -7,33 +7,54 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+
+import java.util.*;
+
 
 @WebServlet("/managerTimeSheetServlet")
 public class ManagerTimeSheetServlet extends HttpServlet {
 
+
+    private final ManagerDao dao = new ManagerDao();
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	ManagerDao dao = new ManagerDao();
         try {
-            List<TimeSheet> pendingList = dao.getPendingTimeSheets();
-            request.setAttribute("pendingList", pendingList);
-            System.out.println(pendingList);
-            request.getRequestDispatcher("WEB-INF/views/attendanceVeiw/managerDashboard.jsp").forward(request, response);
+            List<TimeSheet> timesheets = dao.getAllTimeSheets();
+            request.setAttribute("timesheets", timesheets);
+            System.out.println(timesheets);
+            
+            request.getRequestDispatcher("WEB-INF/views/attendanceVeiw/AdminView.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
+            response.sendError(500, "Error fetching timesheets");
         }
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int timeSheetId = Integer.parseInt(request.getParameter("timeSheetId"));
-        ManagerDao dao = new ManagerDao();
-        try {
-            dao.approveTimeSheet(timeSheetId);
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        String action = request.getParameter("action"); 
+        String[] selectedIds = request.getParameterValues("selectedIds");
+         System.out.println(action);
+         System.out.println(selectedIds);
+    
+        if (action != null && selectedIds != null) {
+            List<Integer> ids = new ArrayList<>();
+            for (String id : selectedIds) {
+                ids.add(Integer.parseInt(id));
+            }
+
+            try {
+                dao.updateStatusBulk(ids, action.equalsIgnoreCase("Approved") ? "Approved" : "Rejected");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
+
         response.sendRedirect("managerTimeSheetServlet");
     }
 }

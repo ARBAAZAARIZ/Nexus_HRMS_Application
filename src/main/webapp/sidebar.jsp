@@ -302,7 +302,18 @@
             <li class="nav-item"><a href="BbTaskReportController" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Task Report</p></a></li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>Attendance <i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item"><a href="managerTimeSheetServlet" class="nav-link"><i class="fas fa-user-friends nav-icon"></i><p>Attendance</p></a></li>
+         
+          </ul>
+        </li>
         
+          
         
         
         <li class="nav-item">
@@ -479,6 +490,14 @@
          
           </ul>
         </li>
+         <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user-check"></i>
+            <p>
+              Attendance
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
         
         <li class="nav-item">
           <a href="#" class="nav-link">
@@ -540,8 +559,7 @@
         
         
         
-        
-        <li class="nav-item">
+
           <a href="attendanceServlet" class="nav-link">
             <i class="nav-icon fas fa-calendar-check"></i>
             <p>Attendance</p>
