@@ -136,40 +136,53 @@
 								<li class="breadcrumb-item active">Dashboard v1</li>
 							</ol>
 						</div>
-						<!-- /.col -->
+						
 					</div>
-					<!-- /.row -->
+					
 				</div>
-				<!-- /.container-fluid -->
+				
 			</div>
 			<section class="content">
 			
 			
 			
-				<table id="example1" class="table payslip-table table-hover">
-					<thead>
-						<tr>
-							<th>Employee</th>
-							<th>Month/Year</th>
-							<th>Net Salary</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="p" items="${payslipList}">
-							<tr>
-								<td>${p.employeeName}</td>
-								<td>${p.month}/${p.year}</td>
-								<td>${p.netSalary}</td>
-								<td><a href="PayslipDownload?payslipId=${p.payslipId}"
-									target="_blank" class="btn btn-view">View</a> <a
-									href="PayslipDownload?payslipId=${p.payslipId}" download
-									class="btn btn-download">Download</a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			
+				<div class="container mt-4">
+    <h3>
+        <c:choose>
+            <c:when test="${role eq 'Admin'}">All Employees Payslips</c:when>
+            <c:otherwise>My Payslips</c:otherwise>
+        </c:choose>
+    </h3>
+
+    <table id="example1" class="table table-striped table-hover">
+        <thead>
+            <tr>
+                
+                <c:if test="${role eq 'Admin'}">
+                    <th>Employee</th>
+                </c:if>
+                <th>Month/Year</th>
+                <th>Net Salary</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="p" items="${payslipList}">
+                <tr>
+                    <c:if test="${role eq 'Admin'}">
+                        <td>${p.employeeName}</td>
+                    </c:if>
+                   <td>${p.monthName}/${p.year}</td>
+                    <td>${p.netSalary}</td>
+                    <td>
+                        <a href="PayslipDownload?payslipId=${p.payslipId}" target="_blank" class="btn btn-sm btn-view">View</a>
+                        <a href="PayslipDownload?payslipId=${p.payslipId}" download class="btn btn-sm btn-download">Download</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</div>
 			
 			</section>
 		</div>

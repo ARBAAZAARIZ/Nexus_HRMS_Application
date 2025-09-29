@@ -572,6 +572,114 @@ public class UserDAO {
         }
         return updated;
     }
+    
+    
+    public List<UserDetails> byCount(int count) {
+    	String sql = "SELECT u.*, r.role_name, d.department_name, des.designation_name FROM users u " +
+                "JOIN roles r ON u.role_id = r.role_id " +
+                "JOIN departments d ON u.department_id = d.department_id " +
+                "JOIN designation des ON u.designation_id = des.designation_id limit ?" ;
+    	
+    	List<UserDetails> users=new ArrayList<UserDetails>();
+    	
+    	try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)) {
+    		ps.setInt(1, count);
+    		
+    		ResultSet rs=ps.executeQuery();
+    		
+    		
+    		
+    		  while (rs.next()) {
+                  UserDetails user = new UserDetails();
+                  user.setUserId(rs.getInt("user_id"));
+                  user.setFirstName(rs.getString("first_name"));
+                  user.setLastName(rs.getString("last_name"));
+                  user.setEmail(rs.getString("email"));
+                  user.setContactNumber(rs.getString("contact_number"));
+                  user.setDateOfJoining(rs.getDate("date_of_joining"));
+                  user.setDateOfBirth(rs.getDate("date_of_birth"));
+                  user.setAddress(rs.getString("address"));
+                  user.setProfilePicture(rs.getString("profile_picture"));
+                  user.setReportingManager(rs.getInt("reporting_manager"));
+                  user.setAboutEmployee(rs.getString("about_employee"));
+                  user.setCreatedAt(rs.getTimestamp("created_at"));
+                  user.setCreatedBy(rs.getString("created_by"));
+                  user.setModifiedAt(rs.getTimestamp("modified_at"));
+                  user.setModifiedBy(rs.getString("modified_by"));
+                  user.setRoleName(rs.getString("role_name"));
+                  user.setDepartmentName(rs.getString("department_name"));
+                  user.setDesignationName(rs.getString("designation_name"));
+                  user.setStatus(rs.getString("status"));
+                  users.add(user);
+              }
+    		  
+    		  
+    		  System.out.println(users);
+    		
+    	}catch(Exception e) {
+    		return null;
+    	}
+    	
+    	return users;
+    	
+    	
+    }
+    
+    
+    public List<UserDetails> searchUsers(String str) {
+        String sql = "SELECT u.*, r.role_name, d.department_name, des.designation_name FROM users u " +
+                     "JOIN roles r ON u.role_id = r.role_id " +
+                     "JOIN departments d ON u.department_id = d.department_id " +
+                     "JOIN designation des ON u.designation_id = des.designation_id " +
+                     "WHERE u.first_name LIKE ? OR u.last_name LIKE ? OR u.email LIKE ? " +
+                     "OR r.role_name LIKE ? OR d.department_name LIKE ? OR des.designation_name LIKE ? " +
+                     "OR DATE_FORMAT(u.date_of_joining, '%Y-%m-%d') LIKE ?";
+
+        List<UserDetails> users = new ArrayList<>();
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String keyword = "%" + str + "%";
+            for (int i = 1; i <= 7; i++) {
+                ps.setString(i, keyword);
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                UserDetails user = new UserDetails();
+                user.setUserId(rs.getInt("user_id"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setEmail(rs.getString("email"));
+                user.setContactNumber(rs.getString("contact_number"));
+                user.setDateOfJoining(rs.getDate("date_of_joining"));
+                user.setDateOfBirth(rs.getDate("date_of_birth"));
+                user.setAddress(rs.getString("address"));
+                user.setProfilePicture(rs.getString("profile_picture"));
+                user.setReportingManager(rs.getInt("reporting_manager"));
+                user.setAboutEmployee(rs.getString("about_employee"));
+                user.setCreatedAt(rs.getTimestamp("created_at"));
+                user.setCreatedBy(rs.getString("created_by"));
+                user.setModifiedAt(rs.getTimestamp("modified_at"));
+                user.setModifiedBy(rs.getString("modified_by"));
+                user.setRoleName(rs.getString("role_name"));
+                user.setDepartmentName(rs.getString("department_name"));
+                user.setDesignationName(rs.getString("designation_name"));
+                user.setStatus(rs.getString("status"));
+                users.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return users;
+    }
+
 
 
     

@@ -473,6 +473,113 @@
   </div>
 
   <div class="card-body">
+  
+  
+  
+  
+<%-- <select name="count" onchange="window.location='${pageContext.request.contextPath}/UserServlet?action=count&value=' + (this.value);">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+</select> --%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<select class="form-select" aria-label="Default select example" name="count" id="countSelect">
+  <option selected>Open this select menu</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
+
+
+
+<input type="submit" value="view all...." class="bg-success" id="viewAllBtn" style="display: none;">
+
+<form method="get" action="UserServlet?action=search"> 
+
+<input type="hidden" name="action" value="search">
+
+<input type="text" class="form-control" name="str" value="${param.str}" id="str" oninput="this.form.submit()" placeholder="search...">
+
+</form>
+
+<script>
+
+$(document).ready(function(){
+
+const urlParams = new URLSearchParams(window.location.search);
+
+ if (urlParams.get('action') === 'count') {
+    $('#viewAllBtn').show();
+  } else {
+    $('#viewAllBtn').hide();
+  }
+
+$('#countSelect').on('change',function(){
+
+
+const selectedValue = $(this).val();
+
+const contextPath = '${pageContext.request.contextPath}'; 
+
+const targetUrl = contextPath + '/UserServlet?action=count&value=' + selectedValue;
+
+
+var viewAllBtn=$("#viewAllBtn").show();
+window.location.href = targetUrl;
+
+
+
+});
+
+/* -----------------------------------------------------------------  */
+
+$('#viewAllBtn').click(function(){
+
+var viewAllBtn=$('#viewAllBtn').hide();
+
+const contextPath = '${pageContext.request.contextPath}'; 
+const targetUrl = contextPath + '/UserServlet?action=view' ;
+
+
+window.location.href= targetUrl
+
+});
+
+/*  ---------------------------------------------------------------- */
+
+/* window.onload=function(){
+var= st=$("#str");
+
+if(st){
+
+st.focus();
+st.setSelectionRange(s.value.length,s.value.length);
+
+}
+} */
+
+
+
+window.onload = function() {
+  var st = document.getElementById("str"); 
+
+  if (st) {
+    st.focus(); 
+    st.setSelectionRange(st.value.length, st.value.length); 
+  }
+};
+
+
+});
+
+</script>
+
+
+
+  
+  
+  
     <div class="table-responsive" style="overflow-x: auto; max-width: 100%;">
       <table id="example1" class="table table-bordered table-hover table-sm" style="table-layout: auto; font-size: 0.85rem; min-width: 1200px;">
         <thead class="thead-light">
@@ -975,6 +1082,9 @@ function submitSelected(format) {
   document.getElementById("exportForm").submit();
 }
 </script>
+
+
+
 
 
 

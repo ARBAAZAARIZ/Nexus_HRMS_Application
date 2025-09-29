@@ -59,6 +59,10 @@ public class UserService {
 	        return userDAO.updateUserDetails(user);
 	    }
 	    
+	    public List<UserDetails> searchUsers(String str){
+	    	return userDAO.searchUsers(str);
+	    }
+	    
 	    
 
 

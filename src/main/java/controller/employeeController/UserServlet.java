@@ -1,4 +1,4 @@
-package controller.employeeController;
+	package controller.employeeController;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -43,6 +43,9 @@ import com.lowagie.text.*;
 import com.lowagie.text.Document;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
+
+import dao.employeeDao.UserDAO;
+
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.Font;
@@ -91,6 +94,9 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        
+        
+        System.out.println(action);
         if (action == null) action = "view";
 
         switch (action) {
@@ -187,9 +193,54 @@ public class UserServlet extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/views/employeeViews/userDetails.jsp").forward(request, response);
                 break;
             }
+            
+            case "count":{
+            int count=Integer.parseInt(request.getParameter("value"));
+            
+            UserDAO dao=new UserDAO();
+            
+            List<UserDetails> users = dao.byCount(count);
+            
+            List<Roles> roles = roleService.getAllRoles();
+            List<Departments> departments = departmentService.getAllDepartments();
+            List<DesignationHelper> designations = designationService.getAllDesignations();
+            List<UserDetails> managers = userService.getAllManagers(); 
+            
+            
 
+            request.setAttribute("users", users);
+            request.setAttribute("roles", roles);
+            request.setAttribute("departments", departments);
+            request.setAttribute("designations", designations);
+            request.setAttribute("managers", managers);
+
+            request.getRequestDispatcher("WEB-INF/views/employeeViews/userView.jsp").forward(request, response);
+            break;
             
+            }
             
+            case "search":{
+            	String str=(String)request.getParameter("str");
+            	
+            	List<UserDetails> users=userService.searchUsers(str);
+            	
+            	 List<Roles> roles = roleService.getAllRoles();
+                 List<Departments> departments = departmentService.getAllDepartments();
+                 List<DesignationHelper> designations = designationService.getAllDesignations();
+                 List<UserDetails> managers = userService.getAllManagers();
+                 
+                 request.setAttribute("users", users);
+                 request.setAttribute("roles", roles);
+                 request.setAttribute("departments", departments);
+                 request.setAttribute("designations", designations);
+                 request.setAttribute("managers", managers);
+
+                 request.getRequestDispatcher("WEB-INF/views/employeeViews/userView.jsp").forward(request, response);
+                 break;
+            	
+            	
+            }
+
             	
             }
         }

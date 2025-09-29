@@ -20,32 +20,32 @@ import helper.payrollHelper.PayslipDetails;
  */
 @WebServlet("/PayslipHistory")
 public class PayslipHistory extends HttpServlet {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private PayslipDAO payslipDAO = new PayslipDAO();
+    private static final long serialVersionUID = 1L;
+    private PayslipDAO payslipDAO = new PayslipDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-           
-            List<PayslipDetails> payslipList=payslipDAO.getAllPayslips();
-            request.setAttribute("payslipList", payslipList);
+            HttpSession session = request.getSession(false);
+            UserDetails user = (UserDetails) session.getAttribute("employee");
 
-//            HttpSession session1 = request.getSession(false);
-//            UserDetails user = (UserDetails) session1.getAttribute("employee");
-//            if (user.getRoleName().equalsIgnoreCase("admin")) {
-               
-                
-                System.out.println(payslipList);
-//            } else {
-//                
-//                payslipList = payslipDAO.getPayslipsByUser(user.getUserId());
-////            }
+            if (user == null) {
+                response.sendRedirect("login.jsp");
+                return;
+            }
+
+            List<PayslipDetails> payslipList;
+
+            if ("admin".equalsIgnoreCase(user.getRoleName())) {
+                payslipList = payslipDAO.getAllPayslips();
+            } else {
+                payslipList = payslipDAO.getPayslipsByUser(user.getUserId());
+            }
 
             request.setAttribute("payslipList", payslipList);
+            request.setAttribute("role", user.getRoleName()); 
             request.getRequestDispatcher("/WEB-INF/views/payroll/payslipHistory.jsp").forward(request, response);
+
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Error fetching payslip history: " + e.getMessage());
